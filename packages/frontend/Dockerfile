@@ -34,8 +34,8 @@ RUN addgroup -S nextjs && adduser -S nextjs -G nextjs
 
 # Include only built files and necessary dependencies, with proper ownership
 COPY --from=build --chown=nextjs:nextjs /repo/packages/frontend/.next/standalone ./
-COPY --from=build --chown=nextjs:nextjs /repo/packages/frontend/.next/static ./.next/static
+COPY --from=build --chown=nextjs:nextjs /repo/packages/frontend/.next/static ./packages/frontend/.next/static
 
 USER nextjs
 
-CMD ["node", "server.js"]
+CMD ["node", "packages/frontend/server.js"]
