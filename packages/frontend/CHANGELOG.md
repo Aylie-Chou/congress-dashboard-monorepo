@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.2-rc.1](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-frontend@1.13.2-rc.0...@twreporter/congress-dashboard-frontend@1.13.2-rc.1) (2026-07-27)
+
+### Bug Fixes
+
+- **frontend:** fix next not found no runtime ([f378835](https://github.com/twreporter/congress-dashboard-monorepo/commit/f378835ae3f513564dd19f76486f60a1c98dbfb9))
+
 ## [1.13.2-rc.0](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-frontend@1.13.1...@twreporter/congress-dashboard-frontend@1.13.2-rc.0) (2026-07-14)
 
 ### Bug Fixes
