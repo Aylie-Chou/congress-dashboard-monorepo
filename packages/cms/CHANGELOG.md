@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.2-rc.1](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-cms@1.8.2-rc.0...@twreporter/congress-dashboard-cms@1.8.2-rc.1) (2026-07-27)
+
+### Bug Fixes
+
+- **cms:** use openssl 3.x for prisma ([adce0d4](https://github.com/twreporter/congress-dashboard-monorepo/commit/adce0d41e9831b893ee831d3ee3b4f1fb45c07b3))
+
 ## [1.8.2-rc.0](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-cms@1.8.1...@twreporter/congress-dashboard-cms@1.8.2-rc.0) (2026-07-14)
 
 ### Bug Fixes
