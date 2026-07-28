@@ -25,7 +25,7 @@ const listConfigurations = list({
       ref: 'CouncilMeeting',
       label: '所屬屆期',
       ui: {
-        labelField: 'term',
+        labelField: 'labelForCMS',
       },
     }),
     councilMember: relationship({
