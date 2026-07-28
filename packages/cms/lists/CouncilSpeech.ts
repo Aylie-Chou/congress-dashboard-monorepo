@@ -21,23 +21,16 @@ import { logger } from '../utils/logger'
 
 const listConfigurations = list({
   fields: {
-    legislativeMeeting: relationship({
-      ref: 'LegislativeMeeting',
+    councilMeeting: relationship({
+      ref: 'CouncilMeeting',
       label: '所屬屆期',
       ui: {
         labelField: 'term',
       },
     }),
-    legislativeMeetingSession: relationship({
-      ref: 'LegislativeMeetingSession',
-      label: '所屬會期',
-      ui: {
-        labelField: 'labelForCMS',
-      },
-    }),
-    legislativeYuanMember: relationship({
-      ref: 'LegislativeYuanMember.speeches',
-      label: '立委屆資',
+    councilMember: relationship({
+      ref: 'CouncilMember.speech',
+      label: '所屬議員',
       many: false,
       ui: {
         labelField: 'labelForCMS',
@@ -74,17 +67,8 @@ const listConfigurations = list({
     attendee: text({
       label: '列席質詢對象',
     }),
-    ivodLink: text({
-      label: 'ivod 連結',
-    }),
-    ivodStartTime: text({
-      label: 'ivod 起始時間',
-    }),
-    ivodEndTime: text({
-      label: 'ivod 結束時間',
-    }),
-    topics: relationship({
-      ref: 'Topic.speeches',
+    topic: relationship({
+      ref: 'CouncilTopic.speech',
       label: '所屬議題',
       many: true,
       ui: {
@@ -97,16 +81,10 @@ const listConfigurations = list({
     }),
   },
   ui: {
-    label: '立法院逐字稿',
+    label: '縣市逐字稿',
     labelField: 'title',
     listView: {
-      initialColumns: [
-        'title',
-        'slug',
-        'legislativeYuanMember',
-        'legislativeMeeting',
-        'legislativeMeetingSession',
-      ],
+      initialColumns: ['title', 'slug', 'councilMember', 'councilMeeting'],
       initialSort: { field: 'date', direction: 'DESC' },
       pageSize: 50,
     },
@@ -131,10 +109,10 @@ const listConfigurations = list({
         const { data } = session
         const { id } = originalItem
         logger.info(
-          `Speech Item ID: ${id} Deleted by ${data.name}-${data.email}`,
+          `Council Speech Item ID: ${id} Deleted by ${data.name}-${data.email}`,
           {
             context: {
-              listKey: 'Speech',
+              listKey: 'CouncilSpeech',
               itemId: id,
               userEmail: data.email,
               userName: data.name,

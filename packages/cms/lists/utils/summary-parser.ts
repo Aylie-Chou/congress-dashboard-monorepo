@@ -1,4 +1,4 @@
-export type ListName = 'speech' | 'bill'
+export type RuleSetName = 'speech' | 'bill'
 
 const parseRule = {
   specificH2: /^##\s+說明\s*\n?/gm, // remove `## 說明` whole line
@@ -7,7 +7,7 @@ const parseRule = {
   lineBreak: /\\n|\r?\n/g,
 } as const
 
-const ruleSet: Record<ListName, RegExp[]> = {
+const ruleSet: Record<RuleSetName, RegExp[]> = {
   speech: [parseRule.list],
   bill: [
     parseRule.specificH2,
@@ -18,7 +18,7 @@ const ruleSet: Record<ListName, RegExp[]> = {
 }
 
 function toPlainTextSummary(
-  listname: ListName,
+  listname: RuleSetName,
   input: unknown,
   limit?: number
 ): string | null {
