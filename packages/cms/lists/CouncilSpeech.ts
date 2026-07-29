@@ -67,6 +67,9 @@ const listConfigurations = list({
     attendee: text({
       label: '列席質詢對象',
     }),
+    sourceLink: text({
+      label: '資料來源連結',
+    }),
     topic: relationship({
       ref: 'CouncilTopic.speech',
       label: '所屬議題',

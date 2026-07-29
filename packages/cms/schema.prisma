@@ -214,6 +214,7 @@ model CouncilSpeech {
   summary          Json?
   content          Json?
   attendee         String          @default("")
+  sourceLink       String          @default("")
   topic            CouncilTopic[]  @relation("CouncilSpeech_topic")
   createdAt        DateTime?       @default(now())
   updatedAt        DateTime?       @updatedAt

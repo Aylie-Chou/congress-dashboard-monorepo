@@ -1066,6 +1066,7 @@ type CouncilSpeech {
   summaryFallback: String
   content: JSON
   attendee: String
+  sourceLink: String
   topic(where: CouncilTopicWhereInput! = {}, orderBy: [CouncilTopicOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: CouncilTopicWhereUniqueInput): [CouncilTopic!]
   topicCount(where: CouncilTopicWhereInput! = {}): Int
   createdAt: DateTime
@@ -1088,6 +1089,7 @@ input CouncilSpeechWhereInput {
   title: StringFilter
   slug: StringFilter
   attendee: StringFilter
+  sourceLink: StringFilter
   topic: CouncilTopicManyRelationFilter
   createdAt: DateTimeNullableFilter
   updatedAt: DateTimeNullableFilter
@@ -1099,6 +1101,7 @@ input CouncilSpeechOrderByInput {
   title: OrderDirection
   slug: OrderDirection
   attendee: OrderDirection
+  sourceLink: OrderDirection
   createdAt: OrderDirection
   updatedAt: OrderDirection
 }
@@ -1112,6 +1115,7 @@ input CouncilSpeechUpdateInput {
   summary: JSON
   content: JSON
   attendee: String
+  sourceLink: String
   topic: CouncilTopicRelateToManyForUpdateInput
   createdAt: DateTime
   updatedAt: DateTime
@@ -1143,6 +1147,7 @@ input CouncilSpeechCreateInput {
   summary: JSON
   content: JSON
   attendee: String
+  sourceLink: String
   topic: CouncilTopicRelateToManyForCreateInput
   createdAt: DateTime
   updatedAt: DateTime

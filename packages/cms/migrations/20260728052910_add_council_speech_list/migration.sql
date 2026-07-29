@@ -9,6 +9,7 @@ CREATE TABLE `CouncilSpeech` (
     `summary` JSON NULL,
     `content` JSON NULL,
     `attendee` VARCHAR(191) NOT NULL DEFAULT '',
+    `sourceLink` VARCHAR(191) NOT NULL DEFAULT '',
     `createdAt` DATETIME(3) NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NULL,
 
