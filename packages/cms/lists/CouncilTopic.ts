@@ -28,6 +28,14 @@ const listConfigurations = list({
       isIndexed: true,
     }),
     slug: SLUG,
+    speech: relationship({
+      ref: 'CouncilSpeech.topic',
+      label: '縣市逐字稿',
+      many: true,
+      ui: {
+        labelField: 'title',
+      },
+    }),
     bill: relationship({
       ref: 'CouncilBill.topic',
       label: '縣市議案',

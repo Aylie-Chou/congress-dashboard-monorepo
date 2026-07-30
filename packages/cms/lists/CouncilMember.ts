@@ -101,9 +101,22 @@ const listConfigurations = list({
         labelField: 'labelForCMS',
       },
     }),
+    speech: relationship({
+      ref: 'CouncilSpeech.councilMember',
+      label: '縣市逐字稿',
+      many: true,
+      ui: {
+        createView: {
+          fieldMode: 'hidden',
+        },
+        itemView: {
+          fieldMode: 'read',
+        },
+      },
+    }),
     bill: relationship({
       ref: 'CouncilBill.councilMember',
-      label: '發言紀錄',
+      label: '縣市議案',
       many: true,
       ui: {
         createView: {
