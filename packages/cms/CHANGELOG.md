@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0-rc.0](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-cms@1.8.2-rc.1...@twreporter/congress-dashboard-cms@1.9.0-rc.0) (2026-07-30)
+
+### Bug Fixes
+
+- **cms:** add sourceLink to council speech ([0c74efb](https://github.com/twreporter/congress-dashboard-monorepo/commit/0c74efb3de2d42746e43263f5b5b7d2bc27450bf))
+- **cms:** use labelForCMS when select relationship ([08a7671](https://github.com/twreporter/congress-dashboard-monorepo/commit/08a76718a74c7d9969e126dc0b57bfb51ac467fa))
+
+### Features
+
+- **cms:** add council speech list ([4226d29](https://github.com/twreporter/congress-dashboard-monorepo/commit/4226d29aec49bbe0920482e6cf03cc9230fb5c21))
+
 ## [1.8.2-rc.1](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-cms@1.8.2-rc.0...@twreporter/congress-dashboard-cms@1.8.2-rc.1) (2026-07-27)
 
 ### Bug Fixes
