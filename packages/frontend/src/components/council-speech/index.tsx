@@ -26,13 +26,13 @@ import {
   ControlItems,
   IvodBlock,
   ControlTabBadge,
-  LeadingSubtitle,
   LeadingBadge,
+  LeadingSubtitle,
 } from '@/components/general-article/styles'
 // components
-import AsideInfo from '@/components/bill/aside-info'
+import AsideInfo from '@/components/council-speech/aside-info'
 import { SourceMobileToolbar } from '@/components/general-article/mobile-toolbar'
-import Content from '@/components/bill/content'
+import Content from '@/components/general-article/content'
 import SpeechDate from '@/components/general-article/date'
 import SpeechTitle from '@/components/general-article/title'
 import AsideToolbar from '@/components/bill/aside-toolbar'
@@ -49,11 +49,11 @@ import {
   FontSize,
   FontSizeOffset,
 } from '@/components/general-article/constants'
-import { useBillData } from './hook/use-bill-data'
+import { useCouncilSpeechData } from './hook/use-council-speech-data'
 // utils
 import { openFeedback } from '@/utils/feedback'
 // types
-import type { BillFromRes } from '@/types/council-bill'
+import type { CouncilSpeechFromRes } from '@/types/council-speech'
 // @twreporter
 import { Source } from '@twreporter/react-components/lib/icon'
 import { colorGrayscale } from '@twreporter/core/lib/constants/color'
@@ -75,10 +75,10 @@ const releaseBranch = process.env.NEXT_PUBLIC_RELEASE_BRANCH
 const intersectionThreshold = 0.5
 const Donation = TEN_YEAR_ANNIVERSARY ? NewDonationBox : DonationBox
 
-type BillPageProps = {
-  bill: BillFromRes
+type CouncilSpeechPageProps = {
+  speech: CouncilSpeechFromRes
 }
-const BillPage: React.FC<BillPageProps> = ({ bill }) => {
+const CouncilSpeechPage: React.FC<CouncilSpeechPageProps> = ({ speech }) => {
   const leadingRef = useRef<HTMLDivElement>(null)
   const { setTabElement, isHeaderHidden } = useScrollContext()
   const [fontSize, setFontSize] = useState(FontSize.SMALL)
@@ -119,8 +119,8 @@ const BillPage: React.FC<BillPageProps> = ({ bill }) => {
     content,
     sourceLink,
     relatedTopics,
-    councilors,
-  } = useBillData(bill)
+    councilor,
+  } = useCouncilSpeechData(speech)
 
   const cycleFontSize = useCallback(() => {
     setFontSize((current) =>
@@ -134,8 +134,8 @@ const BillPage: React.FC<BillPageProps> = ({ bill }) => {
 
   // memoize props passed repeatedly
   const asideInfoProps = useMemo(
-    () => ({ councilors, attendee, relatedTopics }),
-    [councilors, attendee, relatedTopics]
+    () => ({ councilor, attendee, relatedTopics }),
+    [councilor, attendee, relatedTopics]
   )
 
   return (
@@ -147,8 +147,8 @@ const BillPage: React.FC<BillPageProps> = ({ bill }) => {
       >
         <ControlTab $isHeaderAbove={!isHeaderHidden && !isControllBarHidden}>
           <DateAndTitle>
-            <ControlTabBadge $bgColor={colorGrayscale.gray600}>
-              議案
+            <ControlTabBadge $bgColor={colorGrayscale.gray900}>
+              發言
             </ControlTabBadge>
             <ControlTabDate weight={P1.Weight.BOLD} text={date} />
             <ControlTabTitle weight={P1.Weight.BOLD} text={title} />
@@ -164,7 +164,7 @@ const BillPage: React.FC<BillPageProps> = ({ bill }) => {
       </ControlTabContainer>
       <LeadingContainer ref={leadingRef}>
         <LeadingSubtitle>
-          <LeadingBadge $bgColor={colorGrayscale.gray600}>議案</LeadingBadge>
+          <LeadingBadge $bgColor={colorGrayscale.gray900}>發言</LeadingBadge>
           <SpeechDate date={date} />
         </LeadingSubtitle>
         <SpeechTitle title={title} />
@@ -206,7 +206,7 @@ const BillPage: React.FC<BillPageProps> = ({ bill }) => {
           <AsideInfo {...asideInfoProps} />
         </TabletAndBelowWithFlex>
         <DesktopAndAboveWithFlex>
-          <Feedback onClick={() => openFeedback('council-bill')}>
+          <Feedback onClick={() => openFeedback('council-speech')}>
             <CustomPillButton
               leftIconComponent={<Report releaseBranch={releaseBranch} />}
               text={'問題回報'}
@@ -220,12 +220,12 @@ const BillPage: React.FC<BillPageProps> = ({ bill }) => {
           onFontSizeChange={cycleFontSize}
           scrollStage={scrollStage}
           sourceLink={sourceLink}
-          feedbackEventName="council bill mobile toolbar"
-          emptySourceMessage="此議案沒有資料來源"
+          feedbackEventName="council speech mobile toolbar"
+          emptySourceMessage="此逐字稿沒有資料來源"
         />
       </TabletAndBelow>
     </ArticleContainer>
   )
 }
 
-export default React.memo(BillPage)
+export default React.memo(CouncilSpeechPage)

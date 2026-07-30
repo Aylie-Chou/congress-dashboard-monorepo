@@ -1,45 +1,42 @@
 import { keystoneFetch } from '@/app/api/_graphql/keystone'
 // type
-import type { BillFromRes } from '@/types/council-bill'
+import type { CouncilSpeechFromRes } from '@/types/council-speech'
 import type { SitemapItem } from '@/types'
 
-/** fetchABill
- *  fetch council bill with given slug
+/** fetchCouncilSpeech
+ *  fetch speech with given slug
  */
-export const fetchBillBySlug = async ({
+export const fetchCouncilSpeech = async ({
   slug,
 }: {
   slug: string
-}): Promise<BillFromRes | undefined> => {
+}): Promise<CouncilSpeechFromRes | undefined> => {
   const where = {
     slug,
   }
 
   const query = `
-    query Bill($where: CouncilBillWhereUniqueInput!) {
-      councilBill(where: $where) {
+    query CouncilSpeech($where: CouncilSpeechWhereUniqueInput!) {
+      councilSpeech(where: $where) {
         slug
         date
         title
+        councilMember {
+          city
+          councilor {
+            name
+            slug
+          }
+        }
+        attendee
+        topic {
+          title
+          slug
+          city
+        }
         summary
         content
-        attendee
         sourceLink
-        councilMember {
-          councilor {
-            slug
-            name
-          }
-          city
-        }
-        topic {
-          slug
-          title
-          city
-        }
-        councilMeeting {
-          city
-        }
       }
     }
   `
@@ -48,33 +45,33 @@ export const fetchBillBySlug = async ({
 
   try {
     const data = await keystoneFetch<{
-      councilBill?: BillFromRes
+      councilSpeech?: CouncilSpeechFromRes
     }>(JSON.stringify({ query, variables }), false)
     if (data.errors) {
       throw new Error(JSON.stringify(data.errors))
     }
-    return data?.data?.councilBill
+    return data?.data?.councilSpeech
   } catch (error) {
     throw new Error(
-      `Failed to fetch councilBill for slug: ${slug}, err: ${error}`
+      `Failed to fetch council speech for slug: ${slug}, err: ${error}`
     )
   }
 }
 
 /**
- * fetch all council bills slug for sitemap
+ * fetch all council speeches slug for sitemap
  */
-export const fetchAllCouncilBillsSlug = async (): Promise<SitemapItem[]> => {
+export const fetchAllCouncilSpeechesSlug = async (): Promise<SitemapItem[]> => {
   const query = `
-    query GetAllBillsSlug($take: Int, $skip: Int) {
-      councilBill(take: $take, skip: $skip) {
+    query GetAllCouncilSpeechesSlug($take: Int, $skip: Int) {
+      councilSpeeches(take: $take, skip: $skip) {
         slug
         updatedAt
       }
     }
   `
   const batchSize = 500
-  let allBills: SitemapItem[] = []
+  let allSpeeches: SitemapItem[] = []
   let skip = 0
   let fetched = 0
 
@@ -82,18 +79,18 @@ export const fetchAllCouncilBillsSlug = async (): Promise<SitemapItem[]> => {
     const variables = { take: batchSize, skip }
     try {
       const data = await keystoneFetch<{
-        councilBill: SitemapItem[]
+        councilSpeeches: SitemapItem[]
       }>(JSON.stringify({ query, variables }), false)
-      const batch = data?.data?.councilBill ?? []
-      allBills = allBills.concat(batch)
+      const batch = data?.data?.councilSpeeches ?? []
+      allSpeeches = allSpeeches.concat(batch)
       fetched = batch.length
       if (fetched < batchSize) break
       skip += batchSize
     } catch (error) {
       throw new Error(
-        `Failed to fetch bills slug batch, skip: ${skip}, err: ${error}`
+        `Failed to fetch council speeches slug batch, skip: ${skip}, err: ${error}`
       )
     }
   }
-  return allBills
+  return allSpeeches
 }

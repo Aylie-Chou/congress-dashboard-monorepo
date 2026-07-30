@@ -1,12 +1,11 @@
 'use client'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 // @twreporter
 import {
   colorGrayscale,
   colorSupportive,
 } from '@twreporter/core/lib/constants/color'
 import mq from '@twreporter/core/lib/utils/media-query'
-import { H1 } from '@twreporter/react-components/lib/text/headline'
 import { P1, P2 } from '@twreporter/react-components/lib/text/paragraph'
 // constants
 import { HEADER_HEIGHT } from '@/constants/header'
@@ -15,7 +14,7 @@ import { ZIndex } from '@/styles/z-index'
 // utils
 import { notoSerif } from '@/utils/font'
 
-export const SpeechContainer = styled.div`
+export const ArticleContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -51,13 +50,12 @@ export const LeadingContainer = styled.div`
   `};
 `
 
-export const SpeechDate = styled.div`
-  color: ${colorGrayscale.gray800};
+export const LeadingSubtitle = styled.div`
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-start;
   margin-bottom: 12px;
-`
-
-export const SpeechTitle = styled(H1)`
-  color: ${colorGrayscale.gray800};
 `
 
 export const IvodBlock = styled.div`
@@ -244,4 +242,34 @@ export const ControlTabTitle = styled(P1)`
   text-overflow: ellipsis;
   display: inline-block !important; // for text ellipsis
   margin: auto 0 !important;
+`
+
+const badgeStyle = css<{ $bgColor: string; $textColor?: string }>`
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  height: fit-content;
+  align-self: center;
+  background-color: ${(props) => props.$bgColor};
+  color: ${(props) => props.$textColor ?? 'white'};
+`
+
+export const LeadingBadge = styled(P1)<{
+  $bgColor: string
+  $textColor?: string
+}>`
+  ${badgeStyle}
+  padding: 2px 8px;
+  ${mq.tabletAndBelow`
+    padding: 2px 6px;
+  `}
+`
+
+export const ControlTabBadge = styled(P1)<{
+  $bgColor: string
+  $textColor?: string
+}>`
+  ${badgeStyle}
+  padding: 2px 6px;
 `

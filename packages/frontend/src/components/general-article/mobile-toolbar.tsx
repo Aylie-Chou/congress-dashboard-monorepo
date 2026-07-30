@@ -17,13 +17,14 @@ import {
   Video,
   Report,
   Switch,
+  Source,
 } from '@twreporter/react-components/lib/icon'
 // components
 import TabBarButton from '@/components/button/tab-bar-button'
 // toastr
 import toastr from '@/utils/toastr'
 // constants
-import { Direction } from '@/components/speech'
+import { Direction } from '@/components/general-article/constants'
 // util
 import { openFeedback } from '@/utils/feedback'
 
@@ -257,6 +258,86 @@ export const ShareButtonGroup: React.FC<ShareButtonGroupProps> = ({
         onClick={handleCopyOnClick}
       />
     </OptionsContainer>
+  )
+}
+
+type SourceButtonProps = {
+  link?: string
+  emptySourceMessage: string
+  context: React.Context<ToolbarContext>
+}
+
+const SourceButton: React.FC<SourceButtonProps> = ({
+  link,
+  emptySourceMessage,
+  context,
+}) => {
+  const { hideText } = useContext(context)
+  const openSource = () => {
+    if (!link) {
+      alert(emptySourceMessage)
+      return
+    }
+    window.open(link, '_blank')
+  }
+
+  return (
+    <ButtonContainer onClick={openSource}>
+      <IconWithTextButton
+        text="資料來源"
+        iconComponent={<Source releaseBranch={releaseBranch} />}
+        hideText={hideText}
+      />
+    </ButtonContainer>
+  )
+}
+
+type SourceMobileToolbarProps = {
+  onFontSizeChange: () => void
+  sourceLink?: string
+  scrollStage: number
+  feedbackEventName: string
+  emptySourceMessage: string
+}
+
+export const SourceMobileToolbar: React.FC<SourceMobileToolbarProps> = ({
+  onFontSizeChange,
+  sourceLink,
+  scrollStage,
+  feedbackEventName,
+  emptySourceMessage,
+}) => {
+  const [buttonGroup, setButtonGroup] = useState<ButtonGroupType>('none')
+  const isHidden = scrollStage >= 3
+  const hideText = scrollStage >= 2
+  const contextValue = { hideText, setButtonGroup }
+
+  useEffect(() => {
+    setButtonGroup('none')
+  }, [scrollStage])
+
+  return (
+    <MobileToolbarContext.Provider value={contextValue}>
+      <MobileToolbarContainer $isHidden={isHidden} $hideText={hideText}>
+        <ToolBar>
+          <FeedbackButton
+            eventName={feedbackEventName}
+            context={MobileToolbarContext}
+          />
+          <ShareButton context={MobileToolbarContext} />
+          <FontSizeButton
+            onClick={onFontSizeChange}
+            context={MobileToolbarContext}
+          />
+          <SourceButton
+            link={sourceLink}
+            emptySourceMessage={emptySourceMessage}
+            context={MobileToolbarContext}
+          />
+          <ShareButtonGroup isShow={buttonGroup === 'share'} />
+        </ToolBar>
+      </MobileToolbarContainer>
+    </MobileToolbarContext.Provider>
   )
 }
 

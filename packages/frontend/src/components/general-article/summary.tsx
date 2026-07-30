@@ -5,7 +5,10 @@ import styled from 'styled-components'
 import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 import mq from '@twreporter/core/lib/utils/media-query'
 // constants
-import { FontSize, FontSizeOffset } from '@/components/speech'
+import {
+  FontSize,
+  FontSizeOffset,
+} from '@/components/general-article/constants'
 // utils
 import { notoSerif } from '@/utils/font'
 
@@ -49,11 +52,11 @@ const StyledListItem = styled.li<{ $fontSizeOffset: number }>`
   }
 `
 
-type SpeechSummaryProps = {
+type SummaryProps = {
   summary: string | string[]
   fontSizeOffset?: number
 }
-const SpeechSummary: React.FC<SpeechSummaryProps> = ({
+const Summary: React.FC<SummaryProps> = ({
   summary,
   fontSizeOffset = FontSizeOffset[FontSize.SMALL],
 }) => {
@@ -73,4 +76,4 @@ const SpeechSummary: React.FC<SpeechSummaryProps> = ({
   return <Container>{summaryJSX}</Container>
 }
 
-export default SpeechSummary
+export default Summary

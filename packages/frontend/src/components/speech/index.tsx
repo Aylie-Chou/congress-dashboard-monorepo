@@ -11,9 +11,10 @@ import { Report, Video } from '@twreporter/react-components/lib/icon'
 import mq from '@twreporter/core/lib/utils/media-query'
 import { P1 } from '@twreporter/react-components/lib/text/paragraph'
 import { TEN_YEAR_ANNIVERSARY } from '@twreporter/core/lib/constants/feature-flag'
+import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 // styles
 import {
-  SpeechContainer,
+  ArticleContainer,
   LeadingContainer,
   IvodBlock,
   IvodSwitchBlock,
@@ -30,16 +31,19 @@ import {
   ControlTabTitle,
   ControlItems,
   Spacing,
-} from '@/components/speech/styles'
+  ControlTabBadge,
+  LeadingSubtitle,
+  LeadingBadge,
+} from '@/components/general-article/styles'
 // components
-import SpeechDate from '@/components/speech/speech-date'
-import SpeechTitle from '@/components/speech/speech-title'
+import SpeechDate from '@/components/general-article/date'
+import SpeechTitle from '@/components/general-article/title'
 import SpeechAsideInfo from '@/components/speech/speech-aside-info'
-import SpeechAsideToolBar from '@/components/speech/speech-aside-toolbar'
-import SpeechSummary from '@/components/speech/speech-summary'
-import SeparationCurve from '@/components/speech/separation-curve'
-import SpeechContent from '@/components/speech/speech-content'
-import SpeechMobileToolbar from '@/components/speech/speech-mobile-toolbar'
+import SpeechAsideToolBar from '@/components/general-article/aside-toolbar'
+import SpeechSummary from '@/components/general-article/summary'
+import SeparationCurve from '@/components/general-article/separation-curve'
+import SpeechContent from '@/components/general-article/content'
+import SpeechMobileToolbar from '@/components/general-article/mobile-toolbar'
 import IconButton from '@/components/button/icon-button'
 import CustomPillButton from '@/components/button/pill-button'
 import DonationBox from '@/components/about/donation-box'
@@ -50,7 +54,12 @@ import { useScrollContext } from '@/contexts/scroll-context'
 import type { SpeechFromRes } from '@/types/speech'
 // hooks
 import { useSpeechData } from '@/components/speech/hooks/use-speech-data'
-import { useScrollStage } from '@/components/speech/hooks/use-scroll-stage'
+import { useScrollStage } from '@/components/general-article/hooks/use-scroll-stage'
+import {
+  Direction,
+  FontSize,
+  FontSizeOffset,
+} from '@/components/general-article/constants'
 // constants
 import { InternalRoutes } from '@/constants/routes'
 // utils
@@ -67,23 +76,6 @@ const TabletAndBelowWithFlex = styled(TabletAndBelow)`
     display: flex !important;
   `}
 `
-
-export enum FontSize {
-  SMALL = 'small',
-  MEDIUM = 'medium',
-  LARGE = 'large',
-}
-
-export const FontSizeOffset = Object.freeze({
-  [FontSize.SMALL]: 0,
-  [FontSize.MEDIUM]: 2,
-  [FontSize.LARGE]: 4,
-})
-
-export enum Direction {
-  PREV = 'prev',
-  NEXT = 'next',
-}
 
 // constants
 const releaseBranch = process.env.NEXT_PUBLIC_RELEASE_BRANCH
@@ -173,7 +165,7 @@ const SpeechPage: React.FC<SpeechPageProps> = ({ speech, speechGroup }) => {
   )
 
   return (
-    <SpeechContainer>
+    <ArticleContainer>
       <ControlTabContainer
         className="hidden-print"
         $isHeaderHidden={isHeaderHidden}
@@ -181,6 +173,9 @@ const SpeechPage: React.FC<SpeechPageProps> = ({ speech, speechGroup }) => {
       >
         <ControlTab $isHeaderAbove={!isHeaderHidden && !isControllBarHidden}>
           <DateAndTitle>
+            <ControlTabBadge $bgColor={colorGrayscale.gray900}>
+              發言
+            </ControlTabBadge>
             <ControlTabDate weight={P1.Weight.BOLD} text={date} />
             <ControlTabTitle weight={P1.Weight.BOLD} text={title} />
           </DateAndTitle>
@@ -208,7 +203,10 @@ const SpeechPage: React.FC<SpeechPageProps> = ({ speech, speechGroup }) => {
         </ControlTab>
       </ControlTabContainer>
       <LeadingContainer ref={leadingRef}>
-        <SpeechDate date={date} />
+        <LeadingSubtitle>
+          <LeadingBadge $bgColor={colorGrayscale.gray900}>發言</LeadingBadge>
+          <SpeechDate date={date} />
+        </LeadingSubtitle>
         <SpeechTitle title={title} />
         <DesktopAndAboveWithFlex>
           <IvodBlock>
@@ -283,7 +281,7 @@ const SpeechPage: React.FC<SpeechPageProps> = ({ speech, speechGroup }) => {
           scrollStage={scrollStage}
         />
       </TabletAndBelow>
-    </SpeechContainer>
+    </ArticleContainer>
   )
 }
 
