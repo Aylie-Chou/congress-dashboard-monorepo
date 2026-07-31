@@ -158,6 +158,14 @@ const SpeechPage: React.FC<SpeechPageProps> = ({ speech, speechGroup }) => {
     [router, speechGroup, slug]
   )
 
+  const openIvodLink = useCallback(() => {
+    if (!iVODLink) {
+      alert('此逐字稿沒有 iVOD 連結')
+      return
+    }
+    window.open(iVODLink, '_blank', 'noopener,noreferrer')
+  }, [iVODLink])
+
   // memoize props passed repeatedly
   const asideInfoProps = useMemo(
     () => ({ legislator, attendee, relatedTopics }),
@@ -181,7 +189,7 @@ const SpeechPage: React.FC<SpeechPageProps> = ({ speech, speechGroup }) => {
           </DateAndTitle>
           <ControlItems>
             <CustomPillButton
-              onClick={() => window.open(iVODLink, '_blank')}
+              onClick={openIvodLink}
               leftIconComponent={<Video releaseBranch={releaseBranch} />}
               text={'iVOD'}
             />
@@ -211,7 +219,7 @@ const SpeechPage: React.FC<SpeechPageProps> = ({ speech, speechGroup }) => {
         <DesktopAndAboveWithFlex>
           <IvodBlock>
             <CustomPillButton
-              onClick={() => window.open(iVODLink, '_blank')}
+              onClick={openIvodLink}
               leftIconComponent={<Video releaseBranch={releaseBranch} />}
               text={'iVOD'}
             />

@@ -132,6 +132,14 @@ const CouncilSpeechPage: React.FC<CouncilSpeechPageProps> = ({ speech }) => {
     )
   }, [])
 
+  const openSourceLink = useCallback(() => {
+    if (!sourceLink) {
+      alert('此逐字稿沒有資料來源')
+      return
+    }
+    window.open(sourceLink, '_blank', 'noopener,noreferrer')
+  }, [sourceLink])
+
   // memoize props passed repeatedly
   const asideInfoProps = useMemo(
     () => ({ councilor, attendee, relatedTopics }),
@@ -155,7 +163,7 @@ const CouncilSpeechPage: React.FC<CouncilSpeechPageProps> = ({ speech }) => {
           </DateAndTitle>
           <ControlItems>
             <CustomPillButton
-              onClick={() => window.open(sourceLink, '_blank')}
+              onClick={openSourceLink}
               leftIconComponent={<Source releaseBranch={releaseBranch} />}
               text={'資料來源'}
             />
@@ -171,7 +179,7 @@ const CouncilSpeechPage: React.FC<CouncilSpeechPageProps> = ({ speech }) => {
         <DesktopAndAboveWithFlex>
           <IvodBlock>
             <CustomPillButton
-              onClick={() => window.open(sourceLink, '_blank')}
+              onClick={openSourceLink}
               leftIconComponent={<Source releaseBranch={releaseBranch} />}
               text={'資料來源'}
             />

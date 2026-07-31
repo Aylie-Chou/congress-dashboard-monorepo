@@ -132,6 +132,14 @@ const BillPage: React.FC<BillPageProps> = ({ bill }) => {
     )
   }, [])
 
+  const openSourceLink = useCallback(() => {
+    if (!sourceLink) {
+      alert('此議案沒有資料來源')
+      return
+    }
+    window.open(sourceLink, '_blank', 'noopener,noreferrer')
+  }, [sourceLink])
+
   // memoize props passed repeatedly
   const asideInfoProps = useMemo(
     () => ({ councilors, attendee, relatedTopics }),
@@ -155,7 +163,7 @@ const BillPage: React.FC<BillPageProps> = ({ bill }) => {
           </DateAndTitle>
           <ControlItems>
             <CustomPillButton
-              onClick={() => window.open(sourceLink, '_blank')}
+              onClick={openSourceLink}
               leftIconComponent={<Source releaseBranch={releaseBranch} />}
               text={'資料來源'}
             />
@@ -171,7 +179,7 @@ const BillPage: React.FC<BillPageProps> = ({ bill }) => {
         <DesktopAndAboveWithFlex>
           <IvodBlock>
             <CustomPillButton
-              onClick={() => window.open(sourceLink, '_blank')}
+              onClick={openSourceLink}
               leftIconComponent={<Source releaseBranch={releaseBranch} />}
               text={'資料來源'}
             />
