@@ -4,19 +4,19 @@ import styled from 'styled-components'
 // @twreporter
 import { Text, Printer } from '@twreporter/react-components/lib/icon'
 // types
-import type { FontSize } from '@/components/speech'
+import type { FontSize } from '@/components/general-article/constants'
 // components
 import {
   FBShareBT,
   TwitterShareBT,
   LineShareBT,
-} from '@/components/speech/speech-aside-toolbar'
+} from '@/components/general-article/aside-toolbar'
 // style
 import {
   ToolsContainer,
   TextIconBlock,
   PrintIconBlock,
-} from '@/components/speech/speech-aside-toolbar'
+} from '@/components/general-article/aside-toolbar'
 
 const releaseBranch = process.env.NEXT_PUBLIC_RELEASE_BRANCH
 

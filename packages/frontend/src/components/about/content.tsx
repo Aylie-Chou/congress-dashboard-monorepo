@@ -6,7 +6,10 @@ import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 import mq from '@twreporter/core/lib/utils/media-query'
 import { renderElement } from '@twreporter/react-article-components/lib/components/body'
 // constants
-import { FontSize, FontSizeOffset } from '@/components/speech'
+import {
+  FontSize,
+  FontSizeOffset,
+} from '@/components/general-article/constants'
 // types
 import type { Content } from '@/components/about'
 

@@ -16,7 +16,7 @@ const Separation = styled.div`
   }
 `
 
-const SeparationCurve = () => (
+const SeparationCurve: React.FC = () => (
   <Separation>
     <svg
       viewBox="0 0 270 11"
