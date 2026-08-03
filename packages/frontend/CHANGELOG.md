@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0-rc.0](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-frontend@1.13.2-rc.1...@twreporter/congress-dashboard-frontend@1.14.0-rc.0) (2026-08-03)
+
+### Bug Fixes
+
+- **frontend:** open external like with noopener,noreferrer ([3662485](https://github.com/twreporter/congress-dashboard-monorepo/commit/36624850ed08ca5ade190126cd3991303a73fc8d))
+
+### Features
+
+- **frontend:** add council speech page ([0f5577f](https://github.com/twreporter/congress-dashboard-monorepo/commit/0f5577f9c76a247821643f5f20f03f3bc57e8ad6))
+- **frontend:** include council speech in sitemap ([b0f484e](https://github.com/twreporter/congress-dashboard-monorepo/commit/b0f484e8f0581c8ce5dbe56058a0ebaf0716e11e))
+
 ## [1.13.2-rc.1](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-frontend@1.13.2-rc.0...@twreporter/congress-dashboard-frontend@1.13.2-rc.1) (2026-07-27)
 
 ### Bug Fixes

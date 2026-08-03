@@ -11,7 +11,7 @@ import {
   Line,
 } from '@twreporter/react-components/lib/icon'
 // types
-import { FontSize } from '@/components/speech'
+import { FontSize } from '@/components/general-article/constants'
 
 const releaseBranch = process.env.NEXT_PUBLIC_RELEASE_BRANCH
 export function changeFontSizeToPct(fontSize: FontSize): string {

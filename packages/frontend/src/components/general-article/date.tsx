@@ -8,17 +8,16 @@ import mq from '@twreporter/core/lib/utils/media-query'
 
 const CustomP1 = styled(P1)`
   color: ${colorGrayscale.gray800};
-  margin-bottom: 12px;
   font-size: 20px !important;
   ${mq.tabletAndBelow`
     font-size: 16px !important;
   `}
 `
 
-type SpeechDateProps = {
+type DateProps = {
   date: string
 }
-const SpeechDate: React.FC<SpeechDateProps> = ({ date }) => {
+const Date: React.FC<DateProps> = ({ date }) => {
   return <CustomP1 weight={P1.Weight.BOLD} text={date} />
 }
-export default SpeechDate
+export default Date

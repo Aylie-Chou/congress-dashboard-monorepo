@@ -1,7 +1,8 @@
-'use client'
 import React from 'react'
 import Link from 'next/link'
 import styled from 'styled-components'
+// types
+import type { CouncilSpeechData } from '@/types/council-speech'
 // components
 import IssueTag from '@/components/button/issue-tag'
 import {
@@ -25,37 +26,35 @@ const CouncilorBlock = styled(PersonBlock)`
 `
 
 type AsideInfoProps = {
-  councilors?: { name: string; slug: string; city: string }[]
-  attendee?: string
-  relatedTopics?: { title: string; slug: string; city: string }[]
+  councilor?: CouncilSpeechData['councilor']
+  attendee?: CouncilSpeechData['attendee']
+  relatedTopics?: CouncilSpeechData['relatedTopics']
 }
 const AsideInfo: React.FC<AsideInfoProps> = ({
-  councilors = [],
+  councilor,
   attendee,
   relatedTopics = [],
 }) => {
   return (
     <AsideInfoContainer>
       <PersonAndAttendeeBlock>
-        {councilors.length > 0 ? (
+        {councilor ? (
           <CouncilorBlock>
             <PersonLabel>
-              <P2Gray600 text="提案人" />
+              <P2Gray600 text="諮詢議員" />
               <SlashIcon />
             </PersonLabel>
-            {councilors.map((councilor) => (
-              <Link
-                href={`${InternalRoutes.Councilor(councilor.city)}/${
-                  councilor.slug
-                }`}
-                key={`councilor-${councilor.slug}`}
-              >
-                <P1SupportiveHeavy text={councilor.name} />
-              </Link>
-            ))}
+            <Link
+              href={`${InternalRoutes.Councilor(councilor.city)}/${
+                councilor.slug
+              }`}
+              key={`councilor-${councilor.slug}`}
+            >
+              <P1SupportiveHeavy text={councilor.name} />
+            </Link>
           </CouncilorBlock>
         ) : null}
-        {attendee ? <P2Gray600 text={`連署人／${attendee}`} /> : null}
+        {attendee ? <P2Gray600 text={`列席質詢對象／${attendee}`} /> : null}
       </PersonAndAttendeeBlock>
       {relatedTopics.length > 0 ? (
         <IssueTagsBlock>

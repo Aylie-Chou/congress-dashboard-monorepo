@@ -4,7 +4,10 @@ import styled from 'styled-components'
 // @twreporter
 import { colorGrayscale } from '@twreporter/core/lib/constants/color'
 // constants
-import { FontSize, FontSizeOffset } from '@/components/speech'
+import {
+  FontSize,
+  FontSizeOffset,
+} from '@/components/general-article/constants'
 
 export const Container = styled.section<{ $fontSizeOffset: number }>`
   display: flex;
@@ -18,11 +21,11 @@ export const Container = styled.section<{ $fontSizeOffset: number }>`
   white-space: pre-line;
 `
 
-type SpeechContentProps = {
+type ContentProps = {
   content: string
   fontSizeOffset?: number
 }
-const SpeechContent: React.FC<SpeechContentProps> = ({
+const Content: React.FC<ContentProps> = ({
   content,
   fontSizeOffset = FontSizeOffset[FontSize.SMALL],
 }) => {
@@ -46,4 +49,4 @@ const SpeechContent: React.FC<SpeechContentProps> = ({
   )
 }
 
-export default SpeechContent
+export default Content
