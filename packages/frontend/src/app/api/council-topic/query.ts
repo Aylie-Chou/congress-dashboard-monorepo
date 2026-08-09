@@ -30,6 +30,7 @@ const fetchTopNCouncilTopics = async ({
           imageLink
           slug
           party
+          count
           image {
             imageFile {
               url
