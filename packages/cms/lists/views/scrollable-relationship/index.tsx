@@ -15,8 +15,8 @@ export { CardValue, Cell, controller }
 const FieldContainer = styled.div`
   /*
    * Keystone does not currently expose RelationshipSelect's styles prop.
-   * Scope this selector to opted-in fields and anchor it to the combobox's
-   * accessible attributes instead of generated Emotion class names.
+   * Scope this selector to opted-in fields and anchor it to the relationship
+   * field's DOM structure (fieldset > div) instead of generated Emotion class names.
    */
   fieldset > div {
     max-height: 200px;
