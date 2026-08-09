@@ -104,6 +104,7 @@ const listConfigurations = list({
       label: '發言紀錄',
       many: true,
       ui: {
+        labelField: 'slug',
         createView: {
           fieldMode: 'hidden',
         },

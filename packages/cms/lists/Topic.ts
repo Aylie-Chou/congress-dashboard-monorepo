@@ -25,7 +25,7 @@ const listConfigurations = list({
       label: '逐字稿',
       many: true,
       ui: {
-        labelField: 'title',
+        labelField: 'slug',
       },
     }),
     relatedTopics: relationship({

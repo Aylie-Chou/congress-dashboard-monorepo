@@ -295,8 +295,6 @@ model CouncilMember {
   partyId                Int?            @map("party")
   councilMeeting         CouncilMeeting? @relation("CouncilMember_councilMeeting", fields: [councilMeetingId], references: [id])
   councilMeetingId       Int?            @map("councilMeeting")
-  speech                 CouncilSpeech[] @relation("CouncilSpeech_councilMember")
-  bill                   CouncilBill[]   @relation("CouncilBill_councilMember")
   type                   String
   city                   String
   constituency           Int?
@@ -305,6 +303,8 @@ model CouncilMember {
   note                   String          @default("")
   relatedLink            Json?
   isActive               Boolean         @default(true)
+  speech                 CouncilSpeech[] @relation("CouncilSpeech_councilMember")
+  bill                   CouncilBill[]   @relation("CouncilBill_councilMember")
   createdAt              DateTime?       @default(now())
   updatedAt              DateTime?       @updatedAt
 

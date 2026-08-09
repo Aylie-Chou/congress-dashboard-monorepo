@@ -33,7 +33,7 @@ const listConfigurations = list({
       label: '縣市逐字稿',
       many: true,
       ui: {
-        labelField: 'title',
+        labelField: 'slug',
       },
     }),
     bill: relationship({
@@ -41,7 +41,7 @@ const listConfigurations = list({
       label: '縣市議案',
       many: true,
       ui: {
-        labelField: 'title',
+        labelField: 'slug',
       },
     }),
     city: select({
