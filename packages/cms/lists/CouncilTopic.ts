@@ -19,6 +19,7 @@ import {
   COUNCIL_TOPIC_TYPE_OPTIONS,
   COUNCIL_TOPIC_TYPE,
 } from '@twreporter/congress-dashboard-shared/lib/constants/council-topic'
+import { scrollableRelationship } from './fields/scrollable-relationship'
 
 const listConfigurations = list({
   fields: {
@@ -28,7 +29,7 @@ const listConfigurations = list({
       isIndexed: true,
     }),
     slug: SLUG,
-    speech: relationship({
+    speech: scrollableRelationship({
       ref: 'CouncilSpeech.topic',
       label: '縣市逐字稿',
       many: true,
@@ -36,7 +37,7 @@ const listConfigurations = list({
         labelField: 'slug',
       },
     }),
-    bill: relationship({
+    bill: scrollableRelationship({
       ref: 'CouncilBill.topic',
       label: '縣市議案',
       many: true,

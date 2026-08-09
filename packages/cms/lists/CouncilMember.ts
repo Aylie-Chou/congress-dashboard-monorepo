@@ -27,6 +27,7 @@ import {
   CITY_OPTIONS,
   CITY_LABEL,
 } from '@twreporter/congress-dashboard-shared/lib/constants/city'
+import { scrollableRelationship } from './fields/scrollable-relationship'
 
 const listConfigurations = list({
   fields: {
@@ -173,7 +174,7 @@ const listConfigurations = list({
       label: '是否該屆期現任',
       defaultValue: true,
     }),
-    speech: relationship({
+    speech: scrollableRelationship({
       ref: 'CouncilSpeech.councilMember',
       label: '縣市逐字稿',
       many: true,
@@ -187,7 +188,7 @@ const listConfigurations = list({
         },
       },
     }),
-    bill: relationship({
+    bill: scrollableRelationship({
       ref: 'CouncilBill.councilMember',
       label: '縣市議案',
       many: true,
