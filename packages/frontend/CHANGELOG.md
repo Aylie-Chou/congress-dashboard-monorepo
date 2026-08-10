@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0-rc.1](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-frontend@1.14.0-rc.0...@twreporter/congress-dashboard-frontend@1.14.0-rc.1) (2026-08-10)
+
+### Bug Fixes
+
+- **frontend:** add count in fetchTopNCouncilTopics query ([1878b9d](https://github.com/twreporter/congress-dashboard-monorepo/commit/1878b9db75651377dbb48bf7f8051977271e75d6))
+
 # [1.14.0-rc.0](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-frontend@1.13.2-rc.1...@twreporter/congress-dashboard-frontend@1.14.0-rc.0) (2026-08-03)
 
 ### Bug Fixes

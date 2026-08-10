@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0-rc.1](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-cms@1.9.0-rc.0...@twreporter/congress-dashboard-cms@1.9.0-rc.1) (2026-08-10)
+
+### Bug Fixes
+
+- **cms:** update comments ([ade4cd6](https://github.com/twreporter/congress-dashboard-monorepo/commit/ade4cd6b9962e38d22685045f25c2079b04ac458))
+- **cms:** use slug for speech/bill relationship ([c926209](https://github.com/twreporter/congress-dashboard-monorepo/commit/c926209253cb128935bc981ac98741fd3a918f96))
+
+### Features
+
+- **cms:** add scrollable-relationship field ([3f77100](https://github.com/twreporter/congress-dashboard-monorepo/commit/3f77100df6317df59a335206acdbc4621b456163))
+
 # [1.9.0-rc.0](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-cms@1.8.2-rc.1...@twreporter/congress-dashboard-cms@1.9.0-rc.0) (2026-07-30)
 
 ### Bug Fixes

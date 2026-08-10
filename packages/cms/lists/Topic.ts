@@ -11,6 +11,7 @@ import {
 } from './utils/access-control-list'
 import { SLUG, CREATED_AT, UPDATED_AT } from './utils/common-field'
 import { logger } from '../utils/logger'
+import { scrollableRelationship } from './fields/scrollable-relationship'
 
 const listConfigurations = list({
   fields: {
@@ -20,12 +21,12 @@ const listConfigurations = list({
       isIndexed: true,
     }),
     slug: SLUG,
-    speeches: relationship({
+    speeches: scrollableRelationship({
       ref: 'Speech.topics',
       label: '逐字稿',
       many: true,
       ui: {
-        labelField: 'title',
+        labelField: 'slug',
       },
     }),
     relatedTopics: relationship({

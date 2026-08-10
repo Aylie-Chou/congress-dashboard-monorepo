@@ -24,6 +24,7 @@ import {
   CONSTITUENCY_OPTIONS,
 } from '@twreporter/congress-dashboard-shared/lib/constants/legislative-yuan-member'
 import { CITY_OPTIONS } from '@twreporter/congress-dashboard-shared/lib/constants/city'
+import { scrollableRelationship } from './fields/scrollable-relationship'
 
 const listConfigurations = list({
   fields: {
@@ -99,11 +100,12 @@ const listConfigurations = list({
         labelField: 'term',
       },
     }),
-    speeches: relationship({
+    speeches: scrollableRelationship({
       ref: 'Speech.legislativeYuanMember',
       label: '發言紀錄',
       many: true,
       ui: {
+        labelField: 'slug',
         createView: {
           fieldMode: 'hidden',
         },
