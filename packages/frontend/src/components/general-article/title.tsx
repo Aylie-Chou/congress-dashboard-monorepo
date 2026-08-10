@@ -13,10 +13,10 @@ const CustomH1 = styled(H1)`
   font-family: ${notoSerif.style.fontFamily} !important;
 `
 
-type SpeechTitleProps = {
+type TitleProps = {
   title: string
 }
-const SpeechTitle: React.FC<SpeechTitleProps> = ({ title }) => {
+const Title: React.FC<TitleProps> = ({ title }) => {
   return <CustomH1 text={title} />
 }
-export default SpeechTitle
+export default Title

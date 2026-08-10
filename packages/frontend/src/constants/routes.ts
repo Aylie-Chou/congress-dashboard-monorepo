@@ -7,6 +7,7 @@ export const InternalRoutes = {
   Search: '/search',
   Council: '/council',
   Bill: '/council/bill',
+  CouncilSpeech: '/council/a',
   // councilor routes: /council/<region>/lawmaker/:slug
   Councilor: (districtSlug: string) => `/council/${districtSlug}/lawmaker`,
   // council topic routes: /council/<region>/topic/:slug

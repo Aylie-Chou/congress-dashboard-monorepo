@@ -14,6 +14,11 @@ export default withAuth(
       idField: {
         kind: 'autoincrement',
       },
+      extendPrismaSchema: (schema) =>
+        schema.replace(
+          'provider = "prisma-client-js"',
+          'provider = "prisma-client-js"\n  binaryTargets = ["native", "debian-openssl-3.0.x"]'
+        ),
     },
     ui: {
       // For our starter, we check that someone has session data before letting them see the Admin UI.

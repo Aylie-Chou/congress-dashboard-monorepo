@@ -1055,6 +1055,114 @@ input CommitteeMemberCreateInput {
   updatedAt: DateTime
 }
 
+type CouncilSpeech {
+  id: ID!
+  councilMeeting: CouncilMeeting
+  councilMember: CouncilMember
+  date: CalendarDay
+  title: String
+  slug: String
+  summary: JSON
+  summaryFallback: String
+  content: JSON
+  attendee: String
+  sourceLink: String
+  topic(where: CouncilTopicWhereInput! = {}, orderBy: [CouncilTopicOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: CouncilTopicWhereUniqueInput): [CouncilTopic!]
+  topicCount(where: CouncilTopicWhereInput! = {}): Int
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input CouncilSpeechWhereUniqueInput {
+  id: ID
+  slug: String
+}
+
+input CouncilSpeechWhereInput {
+  AND: [CouncilSpeechWhereInput!]
+  OR: [CouncilSpeechWhereInput!]
+  NOT: [CouncilSpeechWhereInput!]
+  id: IDFilter
+  councilMeeting: CouncilMeetingWhereInput
+  councilMember: CouncilMemberWhereInput
+  date: CalendarDayFilter
+  title: StringFilter
+  slug: StringFilter
+  attendee: StringFilter
+  sourceLink: StringFilter
+  topic: CouncilTopicManyRelationFilter
+  createdAt: DateTimeNullableFilter
+  updatedAt: DateTimeNullableFilter
+}
+
+input CouncilSpeechOrderByInput {
+  id: OrderDirection
+  date: OrderDirection
+  title: OrderDirection
+  slug: OrderDirection
+  attendee: OrderDirection
+  sourceLink: OrderDirection
+  createdAt: OrderDirection
+  updatedAt: OrderDirection
+}
+
+input CouncilSpeechUpdateInput {
+  councilMeeting: CouncilMeetingRelateToOneForUpdateInput
+  councilMember: CouncilMemberRelateToOneForUpdateInput
+  date: CalendarDay
+  title: String
+  slug: String
+  summary: JSON
+  content: JSON
+  attendee: String
+  sourceLink: String
+  topic: CouncilTopicRelateToManyForUpdateInput
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input CouncilMeetingRelateToOneForUpdateInput {
+  create: CouncilMeetingCreateInput
+  connect: CouncilMeetingWhereUniqueInput
+  disconnect: Boolean
+}
+
+input CouncilMemberRelateToOneForUpdateInput {
+  create: CouncilMemberCreateInput
+  connect: CouncilMemberWhereUniqueInput
+  disconnect: Boolean
+}
+
+input CouncilSpeechUpdateArgs {
+  where: CouncilSpeechWhereUniqueInput!
+  data: CouncilSpeechUpdateInput!
+}
+
+input CouncilSpeechCreateInput {
+  councilMeeting: CouncilMeetingRelateToOneForCreateInput
+  councilMember: CouncilMemberRelateToOneForCreateInput
+  date: CalendarDay
+  title: String
+  slug: String
+  summary: JSON
+  content: JSON
+  attendee: String
+  sourceLink: String
+  topic: CouncilTopicRelateToManyForCreateInput
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input CouncilMeetingRelateToOneForCreateInput {
+  create: CouncilMeetingCreateInput
+  connect: CouncilMeetingWhereUniqueInput
+}
+
+input CouncilMemberRelateToOneForCreateInput {
+  create: CouncilMemberCreateInput
+  connect: CouncilMemberWhereUniqueInput
+}
+
 type CouncilBill {
   id: ID!
   councilMeeting: CouncilMeeting
@@ -1126,12 +1234,6 @@ input CouncilBillUpdateInput {
   updatedAt: DateTime
 }
 
-input CouncilMeetingRelateToOneForUpdateInput {
-  create: CouncilMeetingCreateInput
-  connect: CouncilMeetingWhereUniqueInput
-  disconnect: Boolean
-}
-
 input CouncilMemberRelateToManyForUpdateInput {
   disconnect: [CouncilMemberWhereUniqueInput!]
   set: [CouncilMemberWhereUniqueInput!]
@@ -1159,11 +1261,6 @@ input CouncilBillCreateInput {
   updatedAt: DateTime
 }
 
-input CouncilMeetingRelateToOneForCreateInput {
-  create: CouncilMeetingCreateInput
-  connect: CouncilMeetingWhereUniqueInput
-}
-
 input CouncilMemberRelateToManyForCreateInput {
   create: [CouncilMemberCreateInput!]
   connect: [CouncilMemberWhereUniqueInput!]
@@ -1173,6 +1270,8 @@ type CouncilTopic {
   id: ID!
   title: String
   slug: String
+  speech(where: CouncilSpeechWhereInput! = {}, orderBy: [CouncilSpeechOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: CouncilSpeechWhereUniqueInput): [CouncilSpeech!]
+  speechCount(where: CouncilSpeechWhereInput! = {}): Int
   bill(where: CouncilBillWhereInput! = {}, orderBy: [CouncilBillOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: CouncilBillWhereUniqueInput): [CouncilBill!]
   billCount(where: CouncilBillWhereInput! = {}): Int
   city: String
@@ -1205,6 +1304,7 @@ input CouncilTopicWhereInput {
   id: IDFilter
   title: StringFilter
   slug: StringFilter
+  speech: CouncilSpeechManyRelationFilter
   bill: CouncilBillManyRelationFilter
   city: StringFilter
   type: StringFilter
@@ -1216,6 +1316,12 @@ input CouncilTopicWhereInput {
   labelForCMS: StringFilter
   createdAt: DateTimeNullableFilter
   updatedAt: DateTimeNullableFilter
+}
+
+input CouncilSpeechManyRelationFilter {
+  every: CouncilSpeechWhereInput
+  some: CouncilSpeechWhereInput
+  none: CouncilSpeechWhereInput
 }
 
 input CouncilBillManyRelationFilter {
@@ -1238,6 +1344,7 @@ input CouncilTopicOrderByInput {
 input CouncilTopicUpdateInput {
   title: String
   slug: String
+  speech: CouncilSpeechRelateToManyForUpdateInput
   bill: CouncilBillRelateToManyForUpdateInput
   city: String
   type: String
@@ -1250,6 +1357,13 @@ input CouncilTopicUpdateInput {
   labelForCMS: String
   createdAt: DateTime
   updatedAt: DateTime
+}
+
+input CouncilSpeechRelateToManyForUpdateInput {
+  disconnect: [CouncilSpeechWhereUniqueInput!]
+  set: [CouncilSpeechWhereUniqueInput!]
+  create: [CouncilSpeechCreateInput!]
+  connect: [CouncilSpeechWhereUniqueInput!]
 }
 
 input CouncilBillRelateToManyForUpdateInput {
@@ -1267,6 +1381,7 @@ input CouncilTopicUpdateArgs {
 input CouncilTopicCreateInput {
   title: String
   slug: String
+  speech: CouncilSpeechRelateToManyForCreateInput
   bill: CouncilBillRelateToManyForCreateInput
   city: String
   type: String
@@ -1279,6 +1394,11 @@ input CouncilTopicCreateInput {
   labelForCMS: String
   createdAt: DateTime
   updatedAt: DateTime
+}
+
+input CouncilSpeechRelateToManyForCreateInput {
+  create: [CouncilSpeechCreateInput!]
+  connect: [CouncilSpeechWhereUniqueInput!]
 }
 
 input CouncilBillRelateToManyForCreateInput {
@@ -1367,8 +1487,6 @@ type CouncilMember {
   labelForCMS: String
   party: Party
   councilMeeting: CouncilMeeting
-  bill(where: CouncilBillWhereInput! = {}, orderBy: [CouncilBillOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: CouncilBillWhereUniqueInput): [CouncilBill!]
-  billCount(where: CouncilBillWhereInput! = {}): Int
   type: String
   city: String
   constituency: Int
@@ -1378,6 +1496,10 @@ type CouncilMember {
   proposalSuccessCount: Int
   relatedLink: JSON
   isActive: Boolean
+  speech(where: CouncilSpeechWhereInput! = {}, orderBy: [CouncilSpeechOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: CouncilSpeechWhereUniqueInput): [CouncilSpeech!]
+  speechCount(where: CouncilSpeechWhereInput! = {}): Int
+  bill(where: CouncilBillWhereInput! = {}, orderBy: [CouncilBillOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: CouncilBillWhereUniqueInput): [CouncilBill!]
+  billCount(where: CouncilBillWhereInput! = {}): Int
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -1395,13 +1517,14 @@ input CouncilMemberWhereInput {
   labelForCMS: StringFilter
   party: PartyWhereInput
   councilMeeting: CouncilMeetingWhereInput
-  bill: CouncilBillManyRelationFilter
   type: StringFilter
   city: StringFilter
   constituency: IntNullableFilter
   tooltip: StringFilter
   note: StringFilter
   isActive: BooleanFilter
+  speech: CouncilSpeechManyRelationFilter
+  bill: CouncilBillManyRelationFilter
   createdAt: DateTimeNullableFilter
   updatedAt: DateTimeNullableFilter
 }
@@ -1424,7 +1547,6 @@ input CouncilMemberUpdateInput {
   labelForCMS: String
   party: PartyRelateToOneForUpdateInput
   councilMeeting: CouncilMeetingRelateToOneForUpdateInput
-  bill: CouncilBillRelateToManyForUpdateInput
   type: String
   city: String
   constituency: Int
@@ -1433,6 +1555,8 @@ input CouncilMemberUpdateInput {
   note: String
   relatedLink: JSON
   isActive: Boolean
+  speech: CouncilSpeechRelateToManyForUpdateInput
+  bill: CouncilBillRelateToManyForUpdateInput
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -1453,7 +1577,6 @@ input CouncilMemberCreateInput {
   labelForCMS: String
   party: PartyRelateToOneForCreateInput
   councilMeeting: CouncilMeetingRelateToOneForCreateInput
-  bill: CouncilBillRelateToManyForCreateInput
   type: String
   city: String
   constituency: Int
@@ -1462,6 +1585,8 @@ input CouncilMemberCreateInput {
   note: String
   relatedLink: JSON
   isActive: Boolean
+  speech: CouncilSpeechRelateToManyForCreateInput
+  bill: CouncilBillRelateToManyForCreateInput
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -1825,6 +1950,12 @@ type Mutation {
   updateCommitteeMembers(data: [CommitteeMemberUpdateArgs!]!): [CommitteeMember]
   deleteCommitteeMember(where: CommitteeMemberWhereUniqueInput!): CommitteeMember
   deleteCommitteeMembers(where: [CommitteeMemberWhereUniqueInput!]!): [CommitteeMember]
+  createCouncilSpeech(data: CouncilSpeechCreateInput!): CouncilSpeech
+  createCouncilSpeeches(data: [CouncilSpeechCreateInput!]!): [CouncilSpeech]
+  updateCouncilSpeech(where: CouncilSpeechWhereUniqueInput!, data: CouncilSpeechUpdateInput!): CouncilSpeech
+  updateCouncilSpeeches(data: [CouncilSpeechUpdateArgs!]!): [CouncilSpeech]
+  deleteCouncilSpeech(where: CouncilSpeechWhereUniqueInput!): CouncilSpeech
+  deleteCouncilSpeeches(where: [CouncilSpeechWhereUniqueInput!]!): [CouncilSpeech]
   createCouncilBill(data: CouncilBillCreateInput!): CouncilBill
   createCouncilBills(data: [CouncilBillCreateInput!]!): [CouncilBill]
   updateCouncilBill(where: CouncilBillWhereUniqueInput!, data: CouncilBillUpdateInput!): CouncilBill
@@ -1930,6 +2061,9 @@ type Query {
   committeeMember(where: CommitteeMemberWhereUniqueInput!): CommitteeMember
   committeeMembers(where: CommitteeMemberWhereInput! = {}, orderBy: [CommitteeMemberOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: CommitteeMemberWhereUniqueInput): [CommitteeMember!]
   committeeMembersCount(where: CommitteeMemberWhereInput! = {}): Int
+  councilSpeech(where: CouncilSpeechWhereUniqueInput!): CouncilSpeech
+  councilSpeeches(where: CouncilSpeechWhereInput! = {}, orderBy: [CouncilSpeechOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: CouncilSpeechWhereUniqueInput): [CouncilSpeech!]
+  councilSpeechesCount(where: CouncilSpeechWhereInput! = {}): Int
   councilBill(where: CouncilBillWhereUniqueInput!): CouncilBill
   councilBills(where: CouncilBillWhereInput! = {}, orderBy: [CouncilBillOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: CouncilBillWhereUniqueInput): [CouncilBill!]
   councilBillsCount(where: CouncilBillWhereInput! = {}): Int

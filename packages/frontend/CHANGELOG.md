@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0-rc.1](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-frontend@1.14.0-rc.0...@twreporter/congress-dashboard-frontend@1.14.0-rc.1) (2026-08-10)
+
+### Bug Fixes
+
+- **frontend:** add count in fetchTopNCouncilTopics query ([1878b9d](https://github.com/twreporter/congress-dashboard-monorepo/commit/1878b9db75651377dbb48bf7f8051977271e75d6))
+
+# [1.14.0-rc.0](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-frontend@1.13.2-rc.1...@twreporter/congress-dashboard-frontend@1.14.0-rc.0) (2026-08-03)
+
+### Bug Fixes
+
+- **frontend:** open external like with noopener,noreferrer ([3662485](https://github.com/twreporter/congress-dashboard-monorepo/commit/36624850ed08ca5ade190126cd3991303a73fc8d))
+
+### Features
+
+- **frontend:** add council speech page ([0f5577f](https://github.com/twreporter/congress-dashboard-monorepo/commit/0f5577f9c76a247821643f5f20f03f3bc57e8ad6))
+- **frontend:** include council speech in sitemap ([b0f484e](https://github.com/twreporter/congress-dashboard-monorepo/commit/b0f484e8f0581c8ce5dbe56058a0ebaf0716e11e))
+
+## [1.13.2-rc.1](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-frontend@1.13.2-rc.0...@twreporter/congress-dashboard-frontend@1.13.2-rc.1) (2026-07-27)
+
+### Bug Fixes
+
+- **frontend:** fix next not found no runtime ([f378835](https://github.com/twreporter/congress-dashboard-monorepo/commit/f378835ae3f513564dd19f76486f60a1c98dbfb9))
+
+## [1.13.2-rc.0](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-frontend@1.13.1...@twreporter/congress-dashboard-frontend@1.13.2-rc.0) (2026-07-14)
+
+### Bug Fixes
+
+- address review comments ([4721541](https://github.com/twreporter/congress-dashboard-monorepo/commit/4721541a1956dfb466a9c044d12499fdc721f5b8))
+- address review comments ([96490e3](https://github.com/twreporter/congress-dashboard-monorepo/commit/96490e3c5af4970ae93dd297bd4e9635d6012e61))
+- **frontend:** set `force-static` for cache ([6b49100](https://github.com/twreporter/congress-dashboard-monorepo/commit/6b49100c538975f2365b89d6ca7c842c7450beb3))
+
 ## [1.13.1](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-frontend@1.13.1-rc.1...@twreporter/congress-dashboard-frontend@1.13.1) (2026-07-08)
 
 **Note:** Version bump only for package @twreporter/congress-dashboard-frontend

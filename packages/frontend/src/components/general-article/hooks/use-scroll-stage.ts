@@ -9,7 +9,7 @@ const SCROLL_THRESHOLD = 16
 const SCROLL_THROTTLE_DELAY = 500
 const MAX_SCROLL_STAGE = 3
 
-export const useScrollStage = () => {
+export const useScrollStage = (): number => {
   const [scrollStage, setScrollStage] = useState(1)
   const lastY = useRef(0)
   const currentY = useRef(0)

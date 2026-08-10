@@ -3,6 +3,43 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0-rc.1](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-cms@1.9.0-rc.0...@twreporter/congress-dashboard-cms@1.9.0-rc.1) (2026-08-10)
+
+### Bug Fixes
+
+- **cms:** update comments ([ade4cd6](https://github.com/twreporter/congress-dashboard-monorepo/commit/ade4cd6b9962e38d22685045f25c2079b04ac458))
+- **cms:** use slug for speech/bill relationship ([c926209](https://github.com/twreporter/congress-dashboard-monorepo/commit/c926209253cb128935bc981ac98741fd3a918f96))
+
+### Features
+
+- **cms:** add scrollable-relationship field ([3f77100](https://github.com/twreporter/congress-dashboard-monorepo/commit/3f77100df6317df59a335206acdbc4621b456163))
+
+# [1.9.0-rc.0](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-cms@1.8.2-rc.1...@twreporter/congress-dashboard-cms@1.9.0-rc.0) (2026-07-30)
+
+### Bug Fixes
+
+- **cms:** add sourceLink to council speech ([0c74efb](https://github.com/twreporter/congress-dashboard-monorepo/commit/0c74efb3de2d42746e43263f5b5b7d2bc27450bf))
+- **cms:** use labelForCMS when select relationship ([08a7671](https://github.com/twreporter/congress-dashboard-monorepo/commit/08a76718a74c7d9969e126dc0b57bfb51ac467fa))
+
+### Features
+
+- **cms:** add council speech list ([4226d29](https://github.com/twreporter/congress-dashboard-monorepo/commit/4226d29aec49bbe0920482e6cf03cc9230fb5c21))
+
+## [1.8.2-rc.1](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-cms@1.8.2-rc.0...@twreporter/congress-dashboard-cms@1.8.2-rc.1) (2026-07-27)
+
+### Bug Fixes
+
+- **cms:** use openssl 3.x for prisma ([adce0d4](https://github.com/twreporter/congress-dashboard-monorepo/commit/adce0d41e9831b893ee831d3ee3b4f1fb45c07b3))
+
+## [1.8.2-rc.0](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-cms@1.8.1...@twreporter/congress-dashboard-cms@1.8.2-rc.0) (2026-07-14)
+
+### Bug Fixes
+
+- address review comments ([4721541](https://github.com/twreporter/congress-dashboard-monorepo/commit/4721541a1956dfb466a9c044d12499fdc721f5b8))
+- address review comments ([96490e3](https://github.com/twreporter/congress-dashboard-monorepo/commit/96490e3c5af4970ae93dd297bd4e9635d6012e61))
+- assure yarn version on cms runtime ([7bd64ec](https://github.com/twreporter/congress-dashboard-monorepo/commit/7bd64ecf30a38d5fbe2cc714c56997d5b5215185))
+- run cms postinstall in production-deps stage ([18fe963](https://github.com/twreporter/congress-dashboard-monorepo/commit/18fe9636bcf788f1d6b810e524a9bc754ea5468a))
+
 ## [1.8.1](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-cms@1.8.1-rc.0...@twreporter/congress-dashboard-cms@1.8.1) (2026-07-08)
 
 **Note:** Version bump only for package @twreporter/congress-dashboard-cms
