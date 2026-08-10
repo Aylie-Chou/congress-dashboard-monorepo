@@ -27,6 +27,7 @@ import {
   CITY_OPTIONS,
   CITY_LABEL,
 } from '@twreporter/congress-dashboard-shared/lib/constants/city'
+import { scrollableRelationship } from './fields/scrollable-relationship'
 
 const listConfigurations = list({
   fields: {
@@ -101,32 +102,6 @@ const listConfigurations = list({
         labelField: 'labelForCMS',
       },
     }),
-    speech: relationship({
-      ref: 'CouncilSpeech.councilMember',
-      label: '縣市逐字稿',
-      many: true,
-      ui: {
-        createView: {
-          fieldMode: 'hidden',
-        },
-        itemView: {
-          fieldMode: 'read',
-        },
-      },
-    }),
-    bill: relationship({
-      ref: 'CouncilBill.councilMember',
-      label: '縣市議案',
-      many: true,
-      ui: {
-        createView: {
-          fieldMode: 'hidden',
-        },
-        itemView: {
-          fieldMode: 'read',
-        },
-      },
-    }),
     type: select({
       label: '類別',
       options: MEMBER_TYPE_OPTIONS,
@@ -198,6 +173,34 @@ const listConfigurations = list({
     isActive: checkbox({
       label: '是否該屆期現任',
       defaultValue: true,
+    }),
+    speech: scrollableRelationship({
+      ref: 'CouncilSpeech.councilMember',
+      label: '縣市逐字稿',
+      many: true,
+      ui: {
+        labelField: 'slug',
+        createView: {
+          fieldMode: 'hidden',
+        },
+        itemView: {
+          fieldMode: 'read',
+        },
+      },
+    }),
+    bill: scrollableRelationship({
+      ref: 'CouncilBill.councilMember',
+      label: '縣市議案',
+      many: true,
+      ui: {
+        labelField: 'slug',
+        createView: {
+          fieldMode: 'hidden',
+        },
+        itemView: {
+          fieldMode: 'read',
+        },
+      },
     }),
     createdAt: CREATED_AT(),
     updatedAt: UPDATED_AT(),

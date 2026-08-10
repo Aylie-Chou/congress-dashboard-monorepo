@@ -1487,10 +1487,6 @@ type CouncilMember {
   labelForCMS: String
   party: Party
   councilMeeting: CouncilMeeting
-  speech(where: CouncilSpeechWhereInput! = {}, orderBy: [CouncilSpeechOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: CouncilSpeechWhereUniqueInput): [CouncilSpeech!]
-  speechCount(where: CouncilSpeechWhereInput! = {}): Int
-  bill(where: CouncilBillWhereInput! = {}, orderBy: [CouncilBillOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: CouncilBillWhereUniqueInput): [CouncilBill!]
-  billCount(where: CouncilBillWhereInput! = {}): Int
   type: String
   city: String
   constituency: Int
@@ -1500,6 +1496,10 @@ type CouncilMember {
   proposalSuccessCount: Int
   relatedLink: JSON
   isActive: Boolean
+  speech(where: CouncilSpeechWhereInput! = {}, orderBy: [CouncilSpeechOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: CouncilSpeechWhereUniqueInput): [CouncilSpeech!]
+  speechCount(where: CouncilSpeechWhereInput! = {}): Int
+  bill(where: CouncilBillWhereInput! = {}, orderBy: [CouncilBillOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: CouncilBillWhereUniqueInput): [CouncilBill!]
+  billCount(where: CouncilBillWhereInput! = {}): Int
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -1517,14 +1517,14 @@ input CouncilMemberWhereInput {
   labelForCMS: StringFilter
   party: PartyWhereInput
   councilMeeting: CouncilMeetingWhereInput
-  speech: CouncilSpeechManyRelationFilter
-  bill: CouncilBillManyRelationFilter
   type: StringFilter
   city: StringFilter
   constituency: IntNullableFilter
   tooltip: StringFilter
   note: StringFilter
   isActive: BooleanFilter
+  speech: CouncilSpeechManyRelationFilter
+  bill: CouncilBillManyRelationFilter
   createdAt: DateTimeNullableFilter
   updatedAt: DateTimeNullableFilter
 }
@@ -1547,8 +1547,6 @@ input CouncilMemberUpdateInput {
   labelForCMS: String
   party: PartyRelateToOneForUpdateInput
   councilMeeting: CouncilMeetingRelateToOneForUpdateInput
-  speech: CouncilSpeechRelateToManyForUpdateInput
-  bill: CouncilBillRelateToManyForUpdateInput
   type: String
   city: String
   constituency: Int
@@ -1557,6 +1555,8 @@ input CouncilMemberUpdateInput {
   note: String
   relatedLink: JSON
   isActive: Boolean
+  speech: CouncilSpeechRelateToManyForUpdateInput
+  bill: CouncilBillRelateToManyForUpdateInput
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -1577,8 +1577,6 @@ input CouncilMemberCreateInput {
   labelForCMS: String
   party: PartyRelateToOneForCreateInput
   councilMeeting: CouncilMeetingRelateToOneForCreateInput
-  speech: CouncilSpeechRelateToManyForCreateInput
-  bill: CouncilBillRelateToManyForCreateInput
   type: String
   city: String
   constituency: Int
@@ -1587,6 +1585,8 @@ input CouncilMemberCreateInput {
   note: String
   relatedLink: JSON
   isActive: Boolean
+  speech: CouncilSpeechRelateToManyForCreateInput
+  bill: CouncilBillRelateToManyForCreateInput
   createdAt: DateTime
   updatedAt: DateTime
 }
