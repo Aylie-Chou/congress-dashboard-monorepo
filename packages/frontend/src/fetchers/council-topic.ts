@@ -5,7 +5,7 @@ import type {
   CouncilTopicForFilter,
   TopNCouncilTopicData,
 } from '@/types/council-topic'
-import type { CouncilorWithBillCount } from '@/types/councilor'
+import type { CouncilorWithCount } from '@/types/councilor'
 import type { FetchTopNTopicsParams } from '@/fetchers/server/council-topic'
 
 // global var
@@ -45,7 +45,7 @@ type FetchCouncilorsOfATopicParams = {
 export const fetchCouncilorsOfATopic = async ({
   topicSlug,
   districtSlug,
-}: FetchCouncilorsOfATopicParams): Promise<CouncilorWithBillCount[]> => {
+}: FetchCouncilorsOfATopicParams): Promise<CouncilorWithCount[]> => {
   const params = new URLSearchParams({ city: districtSlug })
   const url = `${apiBase}/council-topic/${topicSlug}/councilor?${params.toString()}`
   const res = await fetch(url, {
@@ -61,7 +61,7 @@ export const fetchCouncilorsOfATopic = async ({
 
 /* fetchTopNCouncilTopics
  * fetch top N council topics with given take & skip in given meeting
- *   top logic is order by bill count desc
+ *   top logic is order by speech count, bill count, then councilor count desc
  */
 export const fetchTopNCouncilTopics = async ({
   take = 10,

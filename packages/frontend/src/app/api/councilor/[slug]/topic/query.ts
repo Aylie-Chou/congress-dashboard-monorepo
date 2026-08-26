@@ -1,13 +1,15 @@
 import keystoneFetch from '@/app/api/_graphql/keystone'
 // utils
-import { sortByCountDesc } from '@/fetchers/utils'
 // type
 import type { CouncilTopicForFilter } from '@/types/council-topic'
 
 type TopicFromRes = {
   slug: string
   title: string
+  speechCount: number
   billCount: number
+  speech: Array<{ councilMember?: { councilor?: { slug: string } } }>
+  bill: Array<{ councilMember: Array<{ councilor?: { slug: string } }> }>
 }
 
 type FetchTopicsOfACouncilorParams = {
@@ -24,11 +26,18 @@ const fetchTopicsOfACouncilor = async ({
   top,
 }: FetchTopicsOfACouncilorParams): Promise<CouncilTopicForFilter[]> => {
   const query = `
-    query CouncilTopics($where: CouncilTopicWhereInput!, $billCountWhere2: CouncilBillWhereInput!) {
+    query CouncilTopics($where: CouncilTopicWhereInput!, $speechCountWhere: CouncilSpeechWhereInput!, $billCountWhere: CouncilBillWhereInput!, $speechWhere: CouncilSpeechWhereInput!, $billWhere: CouncilBillWhereInput!) {
       councilTopics(where: $where) {
         slug
         title
-        billCount(where: $billCountWhere2)
+        speechCount(where: $speechCountWhere)
+        billCount(where: $billCountWhere)
+        speech(where: $speechWhere) {
+          councilMember { councilor { slug } }
+        }
+        bill(where: $billWhere) {
+          councilMember { councilor { slug } }
+        }
       }
     }
   `
@@ -39,7 +48,19 @@ const fetchTopicsOfACouncilor = async ({
         equals: city,
       },
     },
-    billCountWhere2: {
+    speechCountWhere: {
+      councilMember: {
+        councilor: {
+          slug: {
+            equals: councilorSlug,
+          },
+        },
+        city: {
+          equals: city,
+        },
+      },
+    },
+    billCountWhere: {
       councilMember: {
         some: {
           councilor: {
@@ -47,6 +68,22 @@ const fetchTopicsOfACouncilor = async ({
               equals: councilorSlug,
             },
           },
+          city: {
+            equals: city,
+          },
+        },
+      },
+    },
+    speechWhere: {
+      councilMember: {
+        city: {
+          equals: city,
+        },
+      },
+    },
+    billWhere: {
+      councilMember: {
+        some: {
           city: {
             equals: city,
           },
@@ -69,13 +106,33 @@ const fetchTopicsOfACouncilor = async ({
 
   const topics = data?.data?.councilTopics || []
   const topicsOrderByCount = topics
-    .filter(({ billCount }) => billCount > 0)
-    .map(({ billCount, title, slug }) => ({
+    .filter(({ speechCount, billCount }) => speechCount > 0 || billCount > 0)
+    .map((topic) => {
+      const relatedCouncilors = new Set<string>()
+      topic.speech.forEach(({ councilMember }) => {
+        if (councilMember?.councilor?.slug) {
+          relatedCouncilors.add(councilMember.councilor.slug)
+        }
+      })
+      topic.bill.forEach(({ councilMember }) => {
+        councilMember.forEach(({ councilor }) => {
+          if (councilor?.slug) relatedCouncilors.add(councilor.slug)
+        })
+      })
+      return { ...topic, relatedCouncilorCount: relatedCouncilors.size }
+    })
+    .sort(
+      (a, b) =>
+        b.speechCount - a.speechCount ||
+        b.billCount - a.billCount ||
+        b.relatedCouncilorCount - a.relatedCouncilorCount ||
+        a.slug.localeCompare(b.slug)
+    )
+    .map(({ speechCount, title, slug }) => ({
       slug,
       name: title,
-      count: billCount,
+      count: speechCount,
     }))
-    .sort(sortByCountDesc)
   return top ? topicsOrderByCount.slice(0, top) : topicsOrderByCount
 }
 

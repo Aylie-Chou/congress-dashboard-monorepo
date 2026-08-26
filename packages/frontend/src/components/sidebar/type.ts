@@ -5,6 +5,7 @@ export type TabProps = {
   count?: number
   avatar?: string
   showAvatar?: boolean
+  showCount?: boolean
   selected?: boolean
   onClick?: (e: React.MouseEvent<HTMLElement>) => void
   className?: string

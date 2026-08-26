@@ -225,6 +225,8 @@ type FilterModalProps = {
   placeholder?: string
   initialSelectedOption?: FilterOption[]
   fetcher?: (slug: string) => Promise<FilterOption[]>
+  includeZeroCountOptions?: boolean
+  showOptionCount?: boolean
   onClose: () => void
   onConfirmSelection: (selectedOptions: FilterOption[]) => void
 }
@@ -237,6 +239,8 @@ const FilterModal: React.FC<FilterModalProps> = ({
   placeholder,
   initialSelectedOption = [],
   fetcher,
+  includeZeroCountOptions = false,
+  showOptionCount = true,
   onClose,
   onConfirmSelection,
 }) => {
@@ -268,12 +272,20 @@ const FilterModal: React.FC<FilterModalProps> = ({
   const optionsForShow = useMemo<FilterOption[]>(
     () =>
       options.filter((option) => {
-        if (isSearchMode && keyword && !(option.name && option.name.includes(keyword))) {
+        if (
+          isSearchMode &&
+          keyword &&
+          !(option.name && option.name.includes(keyword))
+        ) {
           return false
         }
-        return option.selected || (option.count != null && option.count > 0)
+        return (
+          option.selected ||
+          includeZeroCountOptions ||
+          (option.count != null && option.count > 0)
+        )
       }),
-    [options, keyword, isSearchMode]
+    [options, keyword, isSearchMode, includeZeroCountOptions]
   )
 
   const { toastr, showSnackBar, snackBarText } = useSnackBar()
@@ -477,6 +489,7 @@ const FilterModal: React.FC<FilterModalProps> = ({
                     isLast={selectedOptions.length === 1}
                     {...selectedOption}
                     selected={true}
+                    showCount={showOptionCount}
                     onClick={(e) => unSelect(e, index)}
                   />
                 ))}
@@ -491,6 +504,7 @@ const FilterModal: React.FC<FilterModalProps> = ({
                     key={`all-options-${index}`}
                     withDelete={false}
                     {...option}
+                    showCount={showOptionCount}
                     onClick={(e) => toggleSelect(e, index)}
                   />
                 ))}

@@ -1,7 +1,7 @@
 import useSWR from 'swr'
 // type
 import type { CouncilTopicForFilter } from '@/types/council-topic'
-import type { CouncilorWithBillCount } from '@/types/councilor'
+import type { CouncilorWithCount } from '@/types/councilor'
 
 // useMoreCouncilTopics - get top topics for a councilor (excluding current topic)
 type TopicStateType<T> = {
@@ -75,7 +75,7 @@ const fetchMoreCouncilors = async ({
   topicSlug,
   excludeCouncilorSlug,
   city,
-}: FetchMoreCouncilorsParams): Promise<CouncilorWithBillCount[]> => {
+}: FetchMoreCouncilorsParams): Promise<CouncilorWithCount[]> => {
   const apiBase = process.env.NEXT_PUBLIC_API_URL as string
   const params = new URLSearchParams({
     city,
@@ -101,8 +101,8 @@ const fetchMoreCouncilors = async ({
 
 export const useMoreCouncilors = (
   params?: FetchMoreCouncilorsParams
-): CouncilorStateType<CouncilorWithBillCount> => {
-  const { data, isLoading, error } = useSWR<CouncilorWithBillCount[]>(
+): CouncilorStateType<CouncilorWithCount> => {
+  const { data, isLoading, error } = useSWR<CouncilorWithCount[]>(
     params ? params : null,
     fetchMoreCouncilors
   )

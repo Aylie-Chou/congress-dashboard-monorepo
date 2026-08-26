@@ -77,6 +77,7 @@ export type CouncilTopicFromRes = {
 export type TopNCouncilTopicData = {
   slug: string
   title: string
+  speechCount: number
   billCount: number
   councilorCount: number
   councilors: {
@@ -102,6 +103,7 @@ export type FeaturedCouncilTopicData = {
   slug: string
   city: string
   billCount: number
+  speechCount: number
   councilorCount: number
   avatars: string[]
 }
