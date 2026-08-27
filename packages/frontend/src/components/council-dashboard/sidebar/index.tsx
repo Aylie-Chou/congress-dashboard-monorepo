@@ -481,6 +481,7 @@ export const SidebarCouncilor: React.FC<SidebarCouncilorProps> = ({
             fetcher={fetchFilterOptions}
             includeZeroCountOptions={true}
             showOptionCount={false}
+            groupOptionsByFeatured={true}
             onClose={() => {
               setShowFilter(false)
             }}

@@ -1,11 +1,13 @@
 import keystoneFetch from '@/app/api/_graphql/keystone'
-// utils
 // type
 import type { CouncilTopicForFilter } from '@/types/council-topic'
+// constants
+import { COUNCIL_TOPIC_TYPE } from '@twreporter/congress-dashboard-shared/lib/constants/council-topic'
 
 type TopicFromRes = {
   slug: string
   title: string
+  type?: string
   speechCount: number
   billCount: number
   speech: Array<{ councilMember?: { councilor?: { slug: string } } }>
@@ -30,6 +32,7 @@ const fetchTopicsOfACouncilor = async ({
       councilTopics(where: $where) {
         slug
         title
+        type
         speechCount(where: $speechCountWhere)
         billCount(where: $billCountWhere)
         speech(where: $speechWhere) {
@@ -128,10 +131,11 @@ const fetchTopicsOfACouncilor = async ({
         b.relatedCouncilorCount - a.relatedCouncilorCount ||
         a.slug.localeCompare(b.slug)
     )
-    .map(({ speechCount, title, slug }) => ({
+    .map(({ speechCount, title, slug, type }) => ({
       slug,
       name: title,
       count: speechCount,
+      isFeatured: type === COUNCIL_TOPIC_TYPE.twreporter,
     }))
   return top ? topicsOrderByCount.slice(0, top) : topicsOrderByCount
 }

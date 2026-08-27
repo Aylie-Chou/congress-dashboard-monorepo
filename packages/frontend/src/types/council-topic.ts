@@ -20,6 +20,7 @@ export type CouncilTopicForFilter = {
   slug: string
   name: string
   count: number
+  isFeatured?: boolean
 }
 
 export type RelatedTopic = {
