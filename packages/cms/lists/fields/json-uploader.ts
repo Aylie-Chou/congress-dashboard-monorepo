@@ -15,7 +15,7 @@ export enum CouncilListName {
   councilTopicRelatedLegislativeTopic = 'CouncilTopicRelatedLegislativeTopic',
   councilTopicRelatedCouncilTopic = 'CouncilTopicRelatedCouncilTopic',
   councilTopicRelatedCityTopic = 'CouncilTopicRelatedCityTopic',
-  councilSpeech = 'councilSpeech',
+  councilSpeech = 'CouncilSpeech',
 }
 
 export type ListConfig = {
@@ -122,8 +122,7 @@ export const councilListConfigs: Record<CouncilListName, ListConfig> = {
       'slug',
       'councilMeeting_city',
       'councilMeeting_term',
-      'councilor_name',
-      'councilor_slug',
+      'councilors',
       'date',
       'title',
       'summary',
@@ -136,7 +135,7 @@ export const councilListConfigs: Record<CouncilListName, ListConfig> = {
       'slug',
       'councilMeeting_city',
       'councilMeeting_term',
-      'councilor_slug',
+      'councilors',
       'date',
       'title',
       'content',

@@ -284,16 +284,17 @@ const validateListSpecificData: Record<
         const {
           councilMeeting_city,
           councilMeeting_term,
-          councilor_slug,
+          councilors,
           relatedCouncilTopic_slug,
         } = item
-        const cityLabel = CITY_LABEL[councilMeeting_city as City]
 
         if (!Object.values(CITY).includes(councilMeeting_city)) {
           validationErrors.push(
             `第 ${rowNum} 筆資料: councilMeeting_city 欄位值 "${councilMeeting_city}" 非有效的縣市代碼`
           )
+          return
         }
+        const cityLabel = CITY_LABEL[councilMeeting_city as City]
 
         const meeting = await context.prisma.councilMeeting.findFirst({
           where: {
@@ -308,19 +309,48 @@ const validateListSpecificData: Record<
           )
         }
 
-        const councilMember = await context.prisma.councilMember.findFirst({
-          where: {
-            councilor: { slug: councilor_slug },
-            councilMeeting: {
-              term: Number(councilMeeting_term),
-              city: councilMeeting_city,
-            },
-          },
-          select: { id: true },
-        })
-        if (!councilMember) {
+        if (!Array.isArray(councilors) || councilors.length === 0) {
           validationErrors.push(
-            `第 ${rowNum} 筆資料: 找不到議員 "${councilor_slug}" 在${cityLabel}第 ${councilMeeting_term} 屆的屆資資料`
+            `第 ${rowNum} 筆資料: councilors 欄位必須為非空陣列`
+          )
+        } else {
+          await Promise.all(
+            councilors.map(async (councilor) => {
+              if (
+                typeof councilor !== 'object' ||
+                councilor === null ||
+                typeof councilor.slug !== 'string' ||
+                councilor.slug === '' ||
+                typeof councilor.name !== 'string' ||
+                councilor.name === '' ||
+                councilor.term === undefined ||
+                councilor.term === null ||
+                councilor.term === '' ||
+                !Number.isInteger(Number(councilor.term))
+              ) {
+                validationErrors.push(
+                  `第 ${rowNum} 筆資料: councilors 內的每筆資料必須包含有效的 slug、name 和 term`
+                )
+                return
+              }
+
+              const councilMember =
+                await context.prisma.councilMember.findFirst({
+                  where: {
+                    councilor: { slug: councilor.slug },
+                    councilMeeting: {
+                      term: Number(councilor.term),
+                      city: councilMeeting_city,
+                    },
+                  },
+                  select: { id: true },
+                })
+              if (!councilMember) {
+                validationErrors.push(
+                  `第 ${rowNum} 筆資料: 找不到議員 "${councilor.slug}" 在${cityLabel}第 ${councilor.term} 屆的屆資資料`
+                )
+              }
+            })
           )
         }
 
@@ -743,7 +773,7 @@ const importHandlers: Record<
         slug,
         councilMeeting_city,
         councilMeeting_term,
-        councilor_slug,
+        councilors,
         date,
         title,
         summary,
@@ -760,13 +790,23 @@ const importHandlers: Record<
         },
         select: { id: true },
       })
-      const councilMember = await context.prisma.councilMember.findFirst({
+      const councilMembers = await context.prisma.councilMember.findMany({
         where: {
-          councilor: { slug: councilor_slug },
-          councilMeetingId: councilMeeting.id,
+          OR: councilors.map(
+            (councilor: { slug: string; term: string | number }) => ({
+              councilor: { slug: councilor.slug },
+              councilMeeting: {
+                city: councilMeeting_city,
+                term: Number(councilor.term),
+              },
+            })
+          ),
         },
         select: { id: true },
       })
+      const councilMemberIds = councilMembers.map(
+        (councilMember: { id: number }) => ({ id: councilMember.id })
+      )
 
       const commonData = {
         date: new Date(date),
@@ -776,7 +816,7 @@ const importHandlers: Record<
         attendee,
         sourceLink: source,
         councilMeeting: { connect: { id: councilMeeting.id } },
-        councilMember: { connect: { id: councilMember.id } },
+        councilMember: { connect: councilMemberIds },
         topic: {
           connect: relatedCouncilTopic_slug.map((topicSlug: string) => ({
             slug: topicSlug,
@@ -794,6 +834,7 @@ const importHandlers: Record<
                 slug: topicSlug,
               })),
             },
+            councilMember: { set: councilMemberIds },
           },
           create: {
             slug,
