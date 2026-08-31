@@ -8,7 +8,7 @@ type SpeechBaseData = {
 
 export type CouncilSpeechFromRes = SpeechBaseData & {
   summary?: string
-  councilMember: {
+  councilMember?: {
     city: string
     councilor: {
       name: string

@@ -22,9 +22,9 @@ export async function generateMetadata({
     notFound()
   }
   const { title, councilMember, summary } = speech
-  const councilorNames = councilMember
-    .map(({ councilor }) => councilor.name)
-    .join('、') || '縣市議會'
+  const councilorNames =
+    (councilMember ?? []).map(({ councilor }) => councilor.name).join('、') ||
+    '縣市議會'
   const titleForMetaData =
     title.length > 15 ? `${title.slice(0, 15)}...` : title
   const descriptionForMetaData = summary
