@@ -20,7 +20,8 @@ export const getCouncilMembersSql = ({
       SELECT cm.id AS councilMemberId, st.B AS topicId, s.id AS speechId, NULL AS billId
       FROM _CouncilSpeech_topic st
       JOIN CouncilSpeech s ON s.id = st.A
-      JOIN CouncilMember cm ON cm.id = s.councilMember
+      JOIN _CouncilMember_speech cms ON cms.B = s.id
+      JOIN CouncilMember cm ON cm.id = cms.A
       WHERE s.councilMeeting = ${councilMeetingId}
         AND cm.id IN (${Prisma.join(councilMemberIds)})
 

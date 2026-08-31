@@ -68,8 +68,10 @@ const fetchTopNCouncilorOfATopic = async ({
         },
       },
       councilMember: {
-        city: {
-          equals: city,
+        some: {
+          city: {
+            equals: city,
+          },
         },
       },
     },

@@ -10,7 +10,9 @@ type TopicFromRes = {
   type?: string
   speechCount: number
   billCount: number
-  speech: Array<{ councilMember?: { councilor?: { slug: string } } }>
+  speech: Array<{
+    councilMember: Array<{ councilor?: { slug: string } }>
+  }>
   bill: Array<{ councilMember: Array<{ councilor?: { slug: string } }> }>
 }
 
@@ -28,7 +30,7 @@ const fetchTopicsOfACouncilor = async ({
   top,
 }: FetchTopicsOfACouncilorParams): Promise<CouncilTopicForFilter[]> => {
   const query = `
-    query CouncilTopics($where: CouncilTopicWhereInput!, $speechCountWhere: CouncilSpeechWhereInput!, $billCountWhere: CouncilBillWhereInput!, $speechWhere: CouncilSpeechWhereInput!, $billWhere: CouncilBillWhereInput!) {
+    query CouncilTopics($where: CouncilTopicWhereInput!, $speechCountWhere: CouncilSpeechWhereInput!, $billCountWhere: CouncilBillWhereInput!, $speechWhere: CouncilSpeechWhereInput!, $billWhere: CouncilBillWhereInput!, $councilMemberWhere: CouncilMemberWhereInput!) {
       councilTopics(where: $where) {
         slug
         title
@@ -36,10 +38,14 @@ const fetchTopicsOfACouncilor = async ({
         speechCount(where: $speechCountWhere)
         billCount(where: $billCountWhere)
         speech(where: $speechWhere) {
-          councilMember { councilor { slug } }
+          councilMember(where: $councilMemberWhere) {
+            councilor { slug }
+          }
         }
         bill(where: $billWhere) {
-          councilMember { councilor { slug } }
+          councilMember(where: $councilMemberWhere) {
+            councilor { slug }
+          }
         }
       }
     }
@@ -53,13 +59,15 @@ const fetchTopicsOfACouncilor = async ({
     },
     speechCountWhere: {
       councilMember: {
-        councilor: {
-          slug: {
-            equals: councilorSlug,
+        some: {
+          councilor: {
+            slug: {
+              equals: councilorSlug,
+            },
           },
-        },
-        city: {
-          equals: city,
+          city: {
+            equals: city,
+          },
         },
       },
     },
@@ -79,8 +87,10 @@ const fetchTopicsOfACouncilor = async ({
     },
     speechWhere: {
       councilMember: {
-        city: {
-          equals: city,
+        some: {
+          city: {
+            equals: city,
+          },
         },
       },
     },
@@ -91,6 +101,11 @@ const fetchTopicsOfACouncilor = async ({
             equals: city,
           },
         },
+      },
+    },
+    councilMemberWhere: {
+      city: {
+        equals: city,
       },
     },
   }
@@ -113,9 +128,9 @@ const fetchTopicsOfACouncilor = async ({
     .map((topic) => {
       const relatedCouncilors = new Set<string>()
       topic.speech.forEach(({ councilMember }) => {
-        if (councilMember?.councilor?.slug) {
-          relatedCouncilors.add(councilMember.councilor.slug)
-        }
+        councilMember.forEach(({ councilor }) => {
+          if (councilor?.slug) relatedCouncilors.add(councilor.slug)
+        })
       })
       topic.bill.forEach(({ councilMember }) => {
         councilMember.forEach(({ councilor }) => {

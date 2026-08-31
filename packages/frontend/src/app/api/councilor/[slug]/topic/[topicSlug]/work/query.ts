@@ -34,7 +34,11 @@ const fetchCouncilWork = async ({
   const councilMeeting = { id: { equals: councilMeetingId } }
   const councilor = { slug: { equals: councilorSlug } }
   const variables = {
-    speechWhere: { topic, councilMeeting, councilMember: { councilor } },
+    speechWhere: {
+      topic,
+      councilMeeting,
+      councilMember: { some: { councilor } },
+    },
     billWhere: {
       topic,
       councilMeeting,
