@@ -13,6 +13,13 @@ export type WorkGroup<T> = {
   cards: T[]
 }
 
+export type WorkFilter = 'all' | WorkType
+
+export const filterCouncilWork = <T extends { type: WorkType }>(
+  work: T[],
+  filter: WorkFilter
+): T[] => (filter === 'all' ? work : work.filter(({ type }) => type === filter))
+
 export const mergeCouncilWork = <T extends Omit<WorkRecord, 'type'>>(
   speeches: T[],
   bills: T[]

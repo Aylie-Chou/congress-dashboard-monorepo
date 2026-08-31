@@ -44,7 +44,7 @@ const useCouncilWork = (params?: FetchCouncilWorkParams) => {
     fetchCouncilWork
   )
   return {
-    work: data?.work,
+    work: data?.work || [],
     speechCount: data?.speechCount || 0,
     billCount: data?.billCount || 0,
     isLoading,
