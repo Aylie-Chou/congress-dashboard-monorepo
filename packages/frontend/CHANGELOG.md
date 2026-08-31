@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.15.0-rc.0](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-frontend@1.14.0...@twreporter/congress-dashboard-frontend@1.15.0-rc.0) (2026-08-31)
+
+### Bug Fixes
+
+- **frontend:** address review comments ([252d830](https://github.com/twreporter/congress-dashboard-monorepo/commit/252d830b1c98ac5ac6df16391f3ec2904b52cddd))
+
+### Features
+
+- **cms,frontend:** add council speech data on dashboard ([f4a0488](https://github.com/twreporter/congress-dashboard-monorepo/commit/f4a04882683c52168cd1b8bbd51ac35149b17f4b))
+- **frontend:** separate featured & general topic on sidebar filter ([ff18266](https://github.com/twreporter/congress-dashboard-monorepo/commit/ff1826657c647b0e24e8ff8fafcabed1cf560753))
+
 # [1.14.0](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-frontend@1.14.0-rc.1...@twreporter/congress-dashboard-frontend@1.14.0) (2026-08-10)
 
 **Note:** Version bump only for package @twreporter/congress-dashboard-frontend
