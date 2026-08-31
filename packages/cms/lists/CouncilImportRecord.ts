@@ -59,9 +59,10 @@ const validateJsonStructure = (
       continue
     }
 
-    // Check if all expected headers exist
+    // Check if all required headers exist
     const missingHeaders = expectedHeadersArray.filter(
-      (header) => !(header in item)
+      (header) =>
+        requiredFields[listName]?.includes(header) && !(header in item)
     )
     if (missingHeaders.length > 0) {
       errors.push(`第 ${i + 1} 筆資料: 缺少欄位 ${missingHeaders.join(', ')}`)
@@ -90,6 +91,17 @@ const validateJsonStructure = (
 const formatValidationErrors = (errors: string[]) => {
   if (errors.length === 0) return ''
   return `JSON 檔案含有錯誤:\n${errors.join('\n')}`
+}
+
+const isValidDate = (value: unknown) => {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    return false
+  }
+
+  const date = new Date(`${value}T00:00:00.000Z`)
+  return (
+    !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value
+  )
 }
 
 const validateListSpecificData: Record<
@@ -202,8 +214,18 @@ const validateListSpecificData: Record<
     await Promise.all(
       jsonData.map(async (item, index) => {
         const rowNum = index + 1
-        const { councilMeeting_city, councilMeeting_term, councilor_slug } =
-          item
+        const {
+          councilMeeting_city,
+          councilMeeting_term,
+          councilor_slug,
+          date,
+        } = item
+
+        if (!isValidDate(date)) {
+          validationErrors.push(
+            `第 ${rowNum} 筆資料: date 欄位必須為有效的 YYYY-MM-DD 日期`
+          )
+        }
 
         if (!Object.values(CITY).includes(councilMeeting_city)) {
           validationErrors.push(
@@ -285,8 +307,15 @@ const validateListSpecificData: Record<
           councilMeeting_city,
           councilMeeting_term,
           councilors,
+          date,
           relatedCouncilTopic_slug,
         } = item
+
+        if (!isValidDate(date)) {
+          validationErrors.push(
+            `第 ${rowNum} 筆資料: date 欄位必須為有效的 YYYY-MM-DD 日期`
+          )
+        }
 
         if (!Object.values(CITY).includes(councilMeeting_city)) {
           validationErrors.push(
@@ -354,14 +383,17 @@ const validateListSpecificData: Record<
           )
         }
 
-        if (!Array.isArray(relatedCouncilTopic_slug)) {
+        const relatedCouncilTopicSlugs =
+          relatedCouncilTopic_slug === undefined ? [] : relatedCouncilTopic_slug
+
+        if (!Array.isArray(relatedCouncilTopicSlugs)) {
           validationErrors.push(
             `第 ${rowNum} 筆資料: relatedCouncilTopic_slug 欄位必須為陣列`
           )
           return
         }
 
-        const topicSlugs = relatedCouncilTopic_slug.filter(
+        const topicSlugs = relatedCouncilTopicSlugs.filter(
           (slug): slug is string => typeof slug === 'string'
         )
         const councilTopics = await context.prisma.councilTopic.findMany({
@@ -371,7 +403,7 @@ const validateListSpecificData: Record<
         const foundSlugs = new Set(
           councilTopics.map((topic: { slug: string }) => topic.slug)
         )
-        for (const slug of relatedCouncilTopic_slug) {
+        for (const slug of relatedCouncilTopicSlugs) {
           if (typeof slug !== 'string') {
             validationErrors.push(
               `第 ${rowNum} 筆資料: relatedCouncilTopic_slug 內的值必須為字串`
@@ -807,6 +839,8 @@ const importHandlers: Record<
       const councilMemberIds = councilMembers.map(
         (councilMember: { id: number }) => ({ id: councilMember.id })
       )
+      const relatedCouncilTopicSlugs =
+        relatedCouncilTopic_slug === undefined ? [] : relatedCouncilTopic_slug
 
       const commonData = {
         date: new Date(date),
@@ -818,7 +852,7 @@ const importHandlers: Record<
         councilMeeting: { connect: { id: councilMeeting.id } },
         councilMember: { connect: councilMemberIds },
         topic: {
-          connect: relatedCouncilTopic_slug.map((topicSlug: string) => ({
+          connect: relatedCouncilTopicSlugs.map((topicSlug: string) => ({
             slug: topicSlug,
           })),
         },
@@ -830,7 +864,7 @@ const importHandlers: Record<
           update: {
             ...commonData,
             topic: {
-              set: relatedCouncilTopic_slug.map((topicSlug: string) => ({
+              set: relatedCouncilTopicSlugs.map((topicSlug: string) => ({
                 slug: topicSlug,
               })),
             },
