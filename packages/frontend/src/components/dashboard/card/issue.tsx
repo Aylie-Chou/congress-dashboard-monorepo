@@ -169,7 +169,9 @@ const CardIssue: React.FC<CardIssueProps> = ({
                   ) : null}
                 </AvatarContainer>
                 <Text text={name} />
-                {showLegislatorCount ? <Text text={`(${count})`} /> : null}
+                {showLegislatorCount && count != null ? (
+                  <Text text={`(${count})`} />
+                ) : null}
               </LegislatorItem>
             )
           }

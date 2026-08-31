@@ -1,7 +1,10 @@
 import useSWR from 'swr'
 // type
 import type { CouncilTopicForFilter } from '@/types/council-topic'
-import type { CouncilorWithCount } from '@/types/councilor'
+import type {
+  CouncilorWithCount,
+  CouncilorWithWorkCounts,
+} from '@/types/councilor'
 
 // useMoreCouncilTopics - get top topics for a councilor (excluding current topic)
 type TopicStateType<T> = {
@@ -41,7 +44,13 @@ const fetchMoreCouncilTopics = async ({
     )
   }
   const data = await res.json()
-  return data?.data || []
+  const councilors: CouncilorWithWorkCounts[] = data?.data || []
+  return councilors.map(
+    ({ speechCount, billCount: _billCount, ...councilor }) => ({
+      ...councilor,
+      count: speechCount,
+    })
+  )
 }
 
 export const useMoreCouncilTopics = (

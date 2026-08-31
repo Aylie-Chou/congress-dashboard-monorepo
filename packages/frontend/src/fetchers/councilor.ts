@@ -1,7 +1,10 @@
 'use client'
 // type
 import type { CouncilDistrict } from '@/types/council'
-import type { CouncilorWithCount } from '@/types/councilor'
+import type {
+  CouncilorWithCount,
+  CouncilorWithWorkCounts,
+} from '@/types/councilor'
 import type {
   CouncilTopicForFilter,
   TopNTopicForCouncilors,
@@ -38,7 +41,13 @@ export const fetchCouncilorsOfATopic = async ({
     throw new Error(`Failed to fetch councilors of topic ${topicSlug}`)
   }
   const data = await res.json()
-  return data?.data || []
+  const councilors: CouncilorWithWorkCounts[] = data?.data || []
+  return councilors.map(
+    ({ speechCount, billCount: _billCount, ...councilor }) => ({
+      ...councilor,
+      count: speechCount,
+    })
+  )
 }
 
 export const fetchTop5CouncilorOfATopic = (

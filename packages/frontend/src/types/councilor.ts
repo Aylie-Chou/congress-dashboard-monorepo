@@ -72,3 +72,8 @@ export type CouncilorWithCount = {
 }
 
 export type CouncilorWithBillCount = CouncilorWithCount
+
+export type CouncilorWithWorkCounts = Omit<CouncilorWithCount, 'count'> & {
+  speechCount: number
+  billCount: number
+}

@@ -3,7 +3,7 @@ import keystoneFetch from '@/app/api/_graphql/keystone'
 import { getImageLink } from '@/fetchers/utils'
 // type
 import type { KeystoneImage } from '@/types'
-import type { CouncilorWithCount } from '@/types/councilor'
+import type { CouncilorWithWorkCounts } from '@/types/councilor'
 // lodash
 import { isEmpty } from 'lodash'
 const _ = {
@@ -33,7 +33,7 @@ const fetchTopNCouncilorOfATopic = async ({
   city,
   excludeCouncilorSlug,
   top,
-}: FetchTopNCouncilorOfATopicParams): Promise<CouncilorWithCount[]> => {
+}: FetchTopNCouncilorOfATopicParams): Promise<CouncilorWithWorkCounts[]> => {
   const query = `
     query CouncilMembers($where: CouncilMemberWhereInput!, $speechCountWhere: CouncilSpeechWhereInput!, $billCountWhere: CouncilBillWhereInput!) {
       councilMembers(where: $where) {
@@ -127,8 +127,9 @@ const fetchTopNCouncilorOfATopic = async ({
         b.billCount - a.billCount ||
         a.councilor.slug.localeCompare(b.councilor.slug)
     )
-    .map(({ speechCount, councilor }) => ({
-      count: speechCount,
+    .map(({ speechCount, billCount, councilor }) => ({
+      speechCount,
+      billCount,
       slug: councilor.slug,
       name: councilor.name,
       avatar: getImageLink(councilor),
