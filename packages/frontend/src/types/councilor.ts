@@ -64,9 +64,16 @@ export type CouncilorForLawmaker = {
   }
 }
 
-export type CouncilorWithBillCount = {
+export type CouncilorWithCount = {
   slug: string
   name: string
   avatar: string
   count: number
+}
+
+export type CouncilorWithBillCount = CouncilorWithCount
+
+export type CouncilorWithWorkCounts = Omit<CouncilorWithCount, 'count'> & {
+  speechCount: number
+  billCount: number
 }
