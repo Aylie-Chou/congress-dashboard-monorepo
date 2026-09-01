@@ -241,7 +241,7 @@ const TopicList: React.FC<TopicListProps> = ({
               {workByMonth.length === 0 ? (
                 <EmptyStateColumn>
                   <EmptyStateText
-                    text={`所選議題在本屆期無${workFilterLabel[workFilter]}資訊`}
+                    text={`本屆期尚無此議題的${workFilterLabel[workFilter]}資訊`}
                   />
                 </EmptyStateColumn>
               ) : (
