@@ -3,6 +3,7 @@ import { gql } from 'graphql-tag'
 // custom sql
 import {
   getCouncilTopicsSql,
+  getCouncilorTopicsSql,
   getTop5CouncilorsSql,
 } from '../custom-sql/councilTopicsOrderByWork'
 
@@ -22,6 +23,7 @@ export const councilTopicsOrderByWorkTypeDefs = gql`
   type CouncilTopicWithWorkCounts {
     title: String!
     slug: String!
+    type: String
     speechCount: Int!
     billCount: Int!
     councilorCount: Int!
@@ -37,6 +39,13 @@ export const councilTopicsOrderByWorkTypeDefs = gql`
       take: Int = 10
       skip: Int = 0
     ): [CouncilTopicWithWorkCounts]
+    """
+    Get one councilor's topics ordered by speech, bill, then related councilor count
+    """
+    councilorTopicsOrderByWork(
+      meetingId: Int!
+      councilorSlug: String!
+    ): [CouncilTopicWithWorkCounts]
   }
 `
 
@@ -44,9 +53,30 @@ type CouncilTopicWithWorkCountsRow = {
   id: number
   title: string
   slug: string
+  type?: string
   speechCount: bigint
   billCount: bigint
   councilorCount: bigint
+}
+
+type CouncilorTopicWithWorkCountsRow = Omit<CouncilTopicWithWorkCountsRow, 'id'>
+
+const resolveCouncilorTopicsOrderByWork = async (
+  _root: any,
+  { meetingId, councilorSlug }: { meetingId: number; councilorSlug: string },
+  context: TypedKeystoneContext
+) => {
+  const topics: CouncilorTopicWithWorkCountsRow[] =
+    await context.prisma.$queryRaw(
+      getCouncilorTopicsSql({ meetingId, councilorSlug })
+    )
+
+  return topics.map(({ speechCount, billCount, councilorCount, ...topic }) => ({
+    ...topic,
+    speechCount: Number(speechCount),
+    billCount: Number(billCount),
+    councilorCount: Number(councilorCount),
+  }))
 }
 
 type CouncilorForTopic = {
@@ -143,5 +173,6 @@ const resolveCouncilTopicsOrderByWork = async (
 export const councilTopicsOrderByWorkResolver = {
   Query: {
     councilTopicsOrderByWork: resolveCouncilTopicsOrderByWork,
+    councilorTopicsOrderByWork: resolveCouncilorTopicsOrderByWork,
   },
 }

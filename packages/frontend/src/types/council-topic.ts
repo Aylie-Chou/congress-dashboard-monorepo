@@ -1,20 +1,10 @@
 // types
-import type {
-  BillMeta,
-  BillMetaWithCouncilorFromRes,
-} from '@/types/council-bill'
+import type { BillMetaWithCouncilorFromRes } from '@/types/council-bill'
 import type { RelatedType } from '@/types/related-twreporter-item'
 import type { CouncilDistrict } from '@/types/council'
 import type { PartyData } from '@/types/party'
 import type { KeystoneImage } from '@/types'
 import type { Tag } from '@/components/dashboard/type'
-
-export type CouncilTopicOfBillData = {
-  slug: string
-  title: string
-  billCount: number
-  bill: BillMeta[]
-}
 
 export type CouncilTopicForFilter = {
   slug: string

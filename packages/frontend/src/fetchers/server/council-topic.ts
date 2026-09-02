@@ -288,7 +288,7 @@ type FeaturedCouncilTopicFromRes = {
   }[]
   speech: {
     id: number
-    councilMember?: CouncilMemberFromRes
+    councilMember: CouncilMemberFromRes[]
   }[]
 }
 
@@ -384,20 +384,22 @@ export const fetchFeaturedCouncilTopics = async ({
         })
 
         topic.speech?.forEach((speech) => {
-          const councilor = speech.councilMember?.councilor
-          const councilorId = councilor?.id
-          if (councilorId !== undefined && councilor) {
-            const existing = councilorCountMap.get(councilorId)
-            if (existing) {
-              existing.speechIds.add(speech.id)
-            } else {
-              councilorCountMap.set(councilorId, {
-                councilor,
-                billIds: new Set(),
-                speechIds: new Set([speech.id]),
-              })
+          speech.councilMember?.forEach((member) => {
+            const councilor = member.councilor
+            const councilorId = councilor?.id
+            if (councilorId !== undefined && councilor) {
+              const existing = councilorCountMap.get(councilorId)
+              if (existing) {
+                existing.speechIds.add(speech.id)
+              } else {
+                councilorCountMap.set(councilorId, {
+                  councilor,
+                  billIds: new Set(),
+                  speechIds: new Set([speech.id]),
+                })
+              }
             }
-          }
+          })
         })
 
         const councilorCount = councilorCountMap.size

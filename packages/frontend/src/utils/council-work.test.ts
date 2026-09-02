@@ -1,6 +1,10 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
-import { groupCouncilWorkByMonth, mergeCouncilWork } from './council-work.ts'
+import {
+  filterCouncilWork,
+  groupCouncilWorkByMonth,
+  mergeCouncilWork,
+} from './council-work.ts'
 
 const speech = {
   slug: 'speech-1',
@@ -41,6 +45,25 @@ describe('groupCouncilWorkByMonth', () => {
         { period: '2024/07', slugs: ['speech-1'] },
         { period: '2024/06', slugs: ['bill-1', 'speech-2'] },
       ]
+    )
+  })
+})
+
+describe('filterCouncilWork', () => {
+  const work = mergeCouncilWork([speech], [bill])
+
+  it('keeps both work types when all is selected', () => {
+    assert.deepEqual(filterCouncilWork(work, 'all'), work)
+  })
+
+  it('keeps only speeches or bills for their respective filters', () => {
+    assert.deepEqual(
+      filterCouncilWork(work, 'speech').map(({ slug }) => slug),
+      ['speech-1']
+    )
+    assert.deepEqual(
+      filterCouncilWork(work, 'bill').map(({ slug }) => slug),
+      ['bill-1']
     )
   })
 })
