@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0-rc.2](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-cms@1.10.0-rc.1...@twreporter/congress-dashboard-cms@1.10.0-rc.2) (2026-09-02)
+
+### Bug Fixes
+
+- update speech councilor fetcher logic ([829dd66](https://github.com/twreporter/congress-dashboard-monorepo/commit/829dd66a30ffb0685340666e0fc7151f246d2326))
+
+### Features
+
+- include council speech data in councilor page ([2fefea7](https://github.com/twreporter/congress-dashboard-monorepo/commit/2fefea784f412a5957c992cfea0bb4fe865dfdd3))
+
 # [1.10.0-rc.1](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-cms@1.10.0-rc.0...@twreporter/congress-dashboard-cms@1.10.0-rc.1) (2026-09-02)
 
 ### Bug Fixes
