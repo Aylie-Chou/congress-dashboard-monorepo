@@ -2091,6 +2091,11 @@ type Query {
   councilTopicsOrderByWork(meetingId: Int!, partyIds: [Int] = [], take: Int = 10, skip: Int = 0): [CouncilTopicWithWorkCounts]
 
   """
+  Get one councilor's topics ordered by speech, bill, then related councilor count
+  """
+  councilorTopicsOrderByWork(meetingId: Int!, councilorSlug: String!): [CouncilTopicWithWorkCounts]
+
+  """
   Get top N topics of council members ordered by speech count, then bill count
   """
   topNTopicsOfCouncilMembers(councilMemberIds: [Int!]!, councilMeetingId: Int!, take: Int = 10): [CouncilMemberWithTopTopics]
@@ -2287,6 +2292,7 @@ type CouncilorForTopic {
 type CouncilTopicWithWorkCounts {
   title: String!
   slug: String!
+  type: String
   speechCount: Int!
   billCount: Int!
   councilorCount: Int!
