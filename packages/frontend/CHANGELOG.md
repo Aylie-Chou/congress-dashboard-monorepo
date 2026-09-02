@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.15.0-rc.1](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-frontend@1.15.0-rc.0...@twreporter/congress-dashboard-frontend@1.15.0-rc.1) (2026-09-02)
+
+### Bug Fixes
+
+- **frontend:** address comments ([bd19cd6](https://github.com/twreporter/congress-dashboard-monorepo/commit/bd19cd617ea298739dfb2b7859802defec341c5d))
+
+### Features
+
+- **cms:** council speech and councilMember many to many ([1982260](https://github.com/twreporter/congress-dashboard-monorepo/commit/19822605bdd2ab13628ce92ceb9a47763b0a0f16))
+
 # [1.15.0-rc.0](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-frontend@1.14.0...@twreporter/congress-dashboard-frontend@1.15.0-rc.0) (2026-08-31)
 
 ### Bug Fixes

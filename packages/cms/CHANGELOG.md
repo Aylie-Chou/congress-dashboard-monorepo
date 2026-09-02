@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0-rc.1](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-cms@1.10.0-rc.0...@twreporter/congress-dashboard-cms@1.10.0-rc.1) (2026-09-02)
+
+### Bug Fixes
+
+- **cms:** valid date for council speech import ([0366737](https://github.com/twreporter/congress-dashboard-monorepo/commit/036673712e2864a060fe30f7f540e0a21f226631))
+
+### Features
+
+- **cms:** council speech and councilMember many to many ([1982260](https://github.com/twreporter/congress-dashboard-monorepo/commit/19822605bdd2ab13628ce92ceb9a47763b0a0f16))
+- **cms:** council speech import record ([d8ce50b](https://github.com/twreporter/congress-dashboard-monorepo/commit/d8ce50b29c4af5d9f9df564c80699d5ed8a4cf39))
+
 # [1.10.0-rc.0](https://github.com/twreporter/congress-dashboard-monorepo/compare/@twreporter/congress-dashboard-cms@1.9.0...@twreporter/congress-dashboard-cms@1.10.0-rc.0) (2026-08-31)
 
 ### Features
