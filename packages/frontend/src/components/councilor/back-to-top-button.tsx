@@ -80,12 +80,13 @@ const BackToTopButton: React.FC = () => {
 
   useEffect(() => {
     let animationFrame: number | null = null
+    let footer: HTMLElement | null = null
 
     const updatePosition = () => {
       animationFrame = null
       setIsVisible(window.scrollY > window.innerHeight * 0.2)
 
-      const footer = document.querySelector('footer')
+      footer ??= document.querySelector('footer')
       if (!footer) {
         setFooterOffset(0)
         return

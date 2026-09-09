@@ -64,11 +64,12 @@ const FixedContentFilter = styled.div<{ $show: boolean; $left: number | null }>`
   display: flex;
   visibility: ${(props) =>
     props.$show && props.$left !== null ? 'visible' : 'hidden'};
-  pointer-events: ${(props) => (props.$show ? 'auto' : 'none')};
+  pointer-events: ${(props) =>
+    props.$show && props.$left !== null ? 'auto' : 'none'};
   position: fixed;
   z-index: ${ZIndex.Tooltip};
   bottom: calc(24px + env(safe-area-inset-bottom, 0px));
-  left: ${(props) => props.$left}px;
+  left: ${(props) => props.$left ?? 0}px;
   transform: translateX(-50%);
 
   ${mq.tabletAndBelow`
