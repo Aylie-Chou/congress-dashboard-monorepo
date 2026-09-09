@@ -293,6 +293,8 @@ export const SidebarIssue: React.FC<SidebarIssueProps> = ({
           <FilterModal
             title={title}
             link={`${InternalRoutes.CouncilTopic(districtSlug)}/${slug}`}
+            titlePrefix="討論 "
+            titleSuffix=" 的議員篩選"
             slug={slug}
             placeholder={'篩選議員'}
             initialSelectedOption={tabList}
@@ -478,6 +480,7 @@ export const SidebarCouncilor: React.FC<SidebarCouncilorProps> = ({
           <FilterModal
             title={title}
             link={`${InternalRoutes.Councilor(districtSlug)}/${slug}`}
+            titleSuffix=" 的相關議題篩選"
             slug={slug}
             placeholder={'篩選議題'}
             initialSelectedOption={tabList}
